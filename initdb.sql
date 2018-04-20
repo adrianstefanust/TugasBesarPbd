@@ -1,8 +1,10 @@
-CREATE TABLE Admin (
-	id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-	username VARCHAR(30) NOT NULL,
-	pass VARCHAR(30) NOT NULL,
-	nama VARCHAR(50) NOT NULL
+DROP TABLE PerubahanCustomer;
+DROP TABLE HubunganCustomer;
+DROP TABLE Customer;
+DROP TABLE Lokasi;
+DROP TABLE Hubungan;
+DROP TABLE Admin;
+
 	);
 	CREATE TABLE Lokasi (
 	idLokasi INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -47,6 +49,7 @@ CREATE TABLE Admin (
 	ALTER TABLE PerubahanCustomer ADD FOREIGN KEY (`idAdmin`) REFERENCES Admin(`id`);
 	ALTER TABLE Customer ADD FOREIGN KEY (`idLokasi`) REFERENCES Lokasi(`idLokasi`);
 	ALTER TABLE Lokasi ADD FOREIGN KEY (`idParent`) REFERENCES Lokasi(`idLokasi`);
+	
 INSERT INTO Lokasi(idLokasi,idParent,nama) values (1,null,'Indonesia');
 INSERT INTO Lokasi(idLokasi,idParent,nama) values (2,1,'Jawa');
 INSERT INTO Lokasi(idLokasi,idParent,nama) values (3,2,'Jawa Barat');
@@ -205,6 +208,3 @@ INSERT INTO hubungan (idHubungan,nama) values (10,'sepupu');
 INSERT INTO hubungan (idHubungan,nama) values (11,'keponakan');
 INSERT INTO hubungan (idHubungan,nama) values (12,'kakek');
 INSERT INTO hubungan (idHubungan,nama) values (13,'nenek');
-
-
-
