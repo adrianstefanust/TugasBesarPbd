@@ -1,9 +1,10 @@
-DROP TABLE Admin;
-DROP TABLE Hubungan;
-DROP TABLE Lokasi;
-DROP TABLE HubunganCustomer;
+
 DROP TABLE PerubahanCustomer;
+DROP TABLE HubunganCustomer;
 DROP TABLE Customer;
+DROP TABLE Lokasi;
+DROP TABLE Hubungan;
+DROP TABLE Admin;
 
 
 CREATE TABLE Admin (
