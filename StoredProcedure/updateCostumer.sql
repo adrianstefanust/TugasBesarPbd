@@ -8,7 +8,8 @@ in nama varchar (100),
 in idLokasi INT,
 in tanggalLahir date,
 in alamat varchar(100),
-in nilaiInvestasi int(11)
+in nilaiInvestasi int(11),
+in idAdmin int
 )
 BEGIN
 
@@ -44,23 +45,23 @@ BEGIN
     Select customerSementara.nilaiInvestasi into tempNilaiInvestasi FROM customerSementara;
 		
     IF tempNama != nama THEN 
-		call insertPerubahanCustomer(idcustomer,'Customer','nama',tempnama,NULL,1);
+		call insertPerubahanCustomer(idcustomer,'Customer','nama',tempnama,NULL,idAdmin);
 		UPDATE customer SET customer.nama = nama WHERE customer.idCustomer = idCustomer;
     END IF;
     IF tempIdLokasi != idLokasi THEN 
-		call insertPerubahanCustomer(idcustomer,'Customer','idLokasi',tempidLokasi,NULL,1);
+		call insertPerubahanCustomer(idcustomer,'Customer','idLokasi',tempidLokasi,NULL,idAdmin);
         UPDATE customer SET customer.idLokasi = idLokasi WHERE customer.idCustomer = idCustomer;
     END IF;
     IF tempTanggalLahir != tanggalLahir THEN 
-		call insertPerubahanCustomer(idcustomer,'Customer','tanggalLahir',temptanggalLahir,NULL,1);
+		call insertPerubahanCustomer(idcustomer,'Customer','tanggalLahir',temptanggalLahir,NULL,idAdmin);
         UPDATE customer SET customer.tanggalLahir = tanggalLahir WHERE customer.idCustomer = idCustomer;
     END IF;
     IF tempAlamat != alamat THEN 
-		call insertPerubahanCustomer(idcustomer,'Customer','alamat',tempalamat,NULL,1);
+		call insertPerubahanCustomer(idcustomer,'Customer','alamat',tempalamat,NULL,idAdmin);
         UPDATE customer SET customer.alamat = alamat WHERE customer.idCustomer = idCustomer;
     END IF;
     IF tempNilaiInvestasi != nilaiInvestasi THEN 
-		call insertPerubahanCustomer(idcustomer,'Customer','nilaiInvestasi',tempNilaiInvestasi,NULL,1);
+		call insertPerubahanCustomer(idcustomer,'Customer','nilaiInvestasi',tempNilaiInvestasi,NULL,idAdmin);
         UPDATE customer SET customer.nilaiInvestasi = nilaiInvestasi WHERE customer.idCustomer = idCustomer;
 	END IF;
     DROP TEMPORARY Table customerSementara;
