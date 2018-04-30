@@ -30,7 +30,7 @@ DROP TABLE Admin;
 	namaField VARCHAR(100) NOT NULL,
 	valueSebelum VARCHAR(100) NOT NULL,
 	idSebelum INT(6),
-	tanggalBerubah date,
+	tanggalBerubah datetime,
 	idAdmin INT(6) UNSIGNED NOT NULL
 	);
 	CREATE TABLE HubunganCustomer(
