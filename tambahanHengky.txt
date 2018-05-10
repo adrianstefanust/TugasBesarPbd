@@ -1,0 +1,47 @@
+DELIMITER $$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getDataCustomer`(
+)
+BEGIN
+
+Select
+	customer.nama, lokasi.nama, customer.tanggalLahir, customer.alamat, customer.nilaiInvestasi
+FROM
+	Customer JOIN Lokasi
+ON
+	customer.idLokasi = lokasi.idLokasi;
+END$$
+DELIMITER ;
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getDataAdministrator`()
+BEGIN
+Select
+	admin.nama,
+    admin.username
+FROM
+	admin
+ORDER BY
+	admin.nama asc;
+END
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getRataanTotalnvestasi`()
+BEGIN
+	Select
+		AVG(customer.nilaiInvestasi) as totalInvestasi
+	FROM
+		Customer;
+END
+
+USE `crm`;
+DROP procedure IF EXISTS `getJumlahCustomer`;
+
+DELIMITER $$
+USE `crm`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getJumlahCustomer`()
+BEGIN
+	SELECT
+		Count(customer.idCustomer) as totalCustomer
+	FROM
+		Customer;
+END$$
+
+DELIMITER ;

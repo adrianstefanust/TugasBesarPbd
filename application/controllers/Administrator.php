@@ -3,10 +3,13 @@ class Administrator extends CI_Controller{
 	function index(){
 		if($this->session->userdata('logged_in')){
 			$aData['title'] = "CRM - Home Admin";
+			$this->load->model('ModelCustomer');
+			$aData['totalInvestasi'] = $this->ModelCustomer->getTotalRataanInvestasi();
+			$aData['jumlahCustomer'] = $this->ModelCustomer->getJumlahCustomer();
 			$this->load->view('template/header', $aData);
 			$this->load->view('template/left-side');
 			$this->load->view('template/right-panel');
-			$this->load->view('home-admin');
+			$this->load->view('home-admin', $aData);
 		}
 		else{
 			redirect('/login');
@@ -142,6 +145,31 @@ class Administrator extends CI_Controller{
 			redirect('/login');
 		}
 	}
-	
+	function loadDataCustomer(){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Data Customer";
+			$this->load->model('ModelCustomer');
+			$aData['dataCustomer'] = $this->ModelCustomer->getDataCustomer();
+			$aData['dataCustomer'] = json_decode(json_encode($aData['dataCustomer']),true);
+			//var_dump($aData['dataCustomer']);
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('data-customer', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function loadDataAdministrator(){
+		$aData['title'] = "CRM - Data Administrator";
+		$this->load->model('ModelAdmin');
+		$aData['dataAdministrator'] = $this->ModelAdmin->getDataAdministrator();
+		//var_dump($aData['dataCustomer']);
+		$this->load->view('template/header', $aData);
+		$this->load->view('template/left-side');
+		$this->load->view('template/right-panel');
+		$this->load->view('data-administrator', $aData);
+	}
 }
 ?>

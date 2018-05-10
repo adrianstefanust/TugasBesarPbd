@@ -31,6 +31,11 @@ class ModelAdmin extends CI_Model{
 	function insertAdministrator($username, $password, $nama){
 		$this->db->query("call insertAdmin('$username', '$password', '$nama')");
 	}
+	function getDataAdministrator(){
+		$data = $this->db->query("call getDataAdministrator()");
+		$result = $data->result_array();
+		return $result;
+	}
 }
 //CARA PENGGUNAAN STORED PROCEDURE DALAM CODEIGNITER
 //$this->db->query("call insertAdmin('$username', '$password', '$nama')");
