@@ -32,5 +32,8 @@ class ModelCustomer extends CI_Model{
 		$result = $data->result_array();
 		return $result;
 	}
+	function editCustomer($idCustomer, $nama, $idLokasi, $tanggalLahir, $alamat, $nilaiInvestasi, $idAdmin){
+		$data = $this->db->query("call updateCustomer('$idCustomer', '$nama', '$idLokasi', '$tanggalLahir', '$alamat', '$nilaiInvestasi', '$idAdmin')");
+	}
 }
 ?>

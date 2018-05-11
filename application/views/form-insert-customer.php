@@ -56,7 +56,7 @@
                                              <option value="" disabled selected="">-- Please Select Option --</option>
                                             <?php if($lokasi) : ?>
                                               <?php foreach($lokasi as $lok) : ?>
-                                                <option value="<?php echo $lok['idLokasi'];?>"><?php echo $lok['nama'];?></option>
+                                                <option value="<?php echo $lok['id'];?>"><?php echo $lok['nama'];?></option>
                                               <?php endforeach; ?>
                                             <?php endif; ?>
                                           </select>

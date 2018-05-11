@@ -34,7 +34,13 @@
                           <div id="pay-invoice">
                               <div class="card-body">
                                   <div class="card-title">
-                                      <h3 class="text-center">Edit Data Customer</h3>
+                                      <h3 class="text-center">Edit Data Customer <br>
+                                      <?php if($detailCustomer) : ?>
+                                        <?php foreach($detailCustomer as $det) : 
+                                          echo "<span>".$det['nama']."</span>";
+                                        endforeach; ?>
+                                      <?php endif; ?> 
+                                      </h3>
                                       <?php
                                       if($this->session->flashdata('info_add')){
                                           ?>
@@ -45,11 +51,12 @@
                                       ?>
                                   </div>
                                   <hr>
-                                  <form action="./editCustomer" method="post" novalidate="novalidate">
+                                  <form action="<?php echo base_url()?>editAttempt" method="post" novalidate="novalidate">
                                     <?php if($detailCustomer) : ?>
                                               <?php foreach($detailCustomer as $det) : ?>
                                       <div class="form-group">
                                           <label for="namaCustomer" class="control-label mb-1">Nama</label>
+                                          <input type="hidden" name="idCustomer" value="<?php echo $det['idCustomer']; ?>">
                                           <input id="namaCustomer" name="namaCustomer" type="text" class="form-control" aria-required="true" aria-invalid="false" value="<?php echo $det['nama'];?>">
                                       </div>
                                       <div class="form-group has-success">
@@ -58,7 +65,7 @@
                                              <option value="" disabled selected="">-- Please Select Option --</option>
                                             <?php if($lokasi) : ?>
                                               <?php foreach($lokasi as $lok) : ?>
-                                                <option value="<?php echo $lok['idLokasi'];?>"><?php echo $lok['nama'];?></option>
+                                                <option value="<?php echo $lok['id'];?>" <?php if($lok['id'] == $det['idLokasi']){echo "selected";} ?> ><?php echo $lok['nama'];?></option>
                                               <?php endforeach; ?>
                                             <?php endif; ?>
                                           </select>
@@ -76,10 +83,16 @@
                                           <input id="nilai_invest" name="nilai_invest" type="number" class="form-control" value="<?php echo $det['nilaiInvestasi'];?>">
                                       </div>
                                       <div>
+                                        <div class="col-lg-4">
+                                          <a href="<?php echo base_url();?>dataCustomer" class="btn btn-lg btn-danger btn-block"><i class="fa fa-remove fa-lg"></i>&nbsp; BACK</a>
+                                        </div>
+                                        <div class="col-lg-8">
                                           <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
-                                              <i class="fa fa-lock fa-lg"></i>&nbsp;
-                                              <span id="payment-button-amount">Register</span>
+                                              <i class="fa fa-check fa-lg"></i>&nbsp;
+                                              <span id="payment-button-amount">Edit Data</span>
                                           </button>
+                                        </div>  
+                                          
                                       </div>
                                       <?php endforeach; ?>
                                             <?php endif; ?>

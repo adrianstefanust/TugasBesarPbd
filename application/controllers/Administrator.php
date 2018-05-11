@@ -179,12 +179,33 @@ class Administrator extends CI_Controller{
 	function loadViewEditCustomer($idCustomer){
 		if($this->session->userdata('logged_in')){
 			$aData['title'] = "CRM - Edit Data Customer";
+			$this->load->model('ModelLokasi');
+			$res = $this->ModelLokasi->getLokasiKota();
+			$aData['lokasi'] = json_decode(json_encode($res),true);
 			$this->load->model('ModelCustomer');
 			$aData['detailCustomer'] = $this->ModelCustomer->getDetailCustomer($idCustomer);
 			$this->load->view('template/header', $aData);
 			$this->load->view('template/left-side');
 			$this->load->view('template/right-panel');
 			$this->load->view('edit-customer', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function editCustomer(){
+		if($this->session->userdata('logged_in')){
+			$idCustomer = $this->input->post('idCustomer');
+			$nama = $this->input->post('namaCustomer');
+			$idLokasi = $this->input->post('lokasi');
+			$tanggalLahir = $this->input->post('tanggal_lahir');
+			$alamat = $this->input->post('alamat');
+			$nilaiInvestasi = $this->input->post('nilai_invest');
+			$idAdmin = $this->session->userdata('idAdmin');
+			$this->load->model('ModelCustomer');
+			$this->ModelCustomer->editCustomer($idCustomer, $nama, $idLokasi, $tanggalLahir, $alamat, $nilaiInvestasi, $idAdmin);
+			$this->session->set_flashdata('info_add', "Berhasil menambahkan melakukan Edit Customer $nama ");
+			redirect('/dataCustomer');
 		}
 		else{
 			redirect('/login');
