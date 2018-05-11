@@ -62,6 +62,7 @@ $route['viewHubunganCustomer'] = 'Administrator/loadViewInsertHubCustomer';
 $route['insertHubunganCustomer'] = 'Administrator/insertHubunganCustomer';
 $route['dataCustomer'] = 'Administrator/loadDataCustomer';
 $route['dataAdministrator'] = 'Administrator/loadDataAdministrator';
+$route['editCustomer/(:any)'] = 'Administrator/loadViewEditCustomer/$1';
 $route['attemptLogin'] = 'Login/attemptLogin';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

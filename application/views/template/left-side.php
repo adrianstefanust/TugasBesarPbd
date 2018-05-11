@@ -11,29 +11,29 @@
                     <i class="fa fa-bars"></i>
                 </button>
                 <a class="navbar-brand" href="./home"><h4>CRM</h4></a>
-                <a class="navbar-brand hidden" href="./"><img src="images/logo2.png" alt="Logo"></a>
+                <a class="navbar-brand hidden" href="<?php echo base_url();?>home"><img src="images/logo2.png" alt="Logo"></a>
             </div>
 
             <div id="main-menu" class="main-menu collapse navbar-collapse">
                 <ul class="nav navbar-nav">
                     <li class="active">
-                        <a href="./home"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                        <a href="<?php echo base_url();?>home"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
                     <h3 class="menu-title">Action</h3><!-- /.menu-title -->
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Insert Data</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="./viewAdmin">Admin</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="./viewInsertCustomer">Customer</a></li>
-                            <li><i class="fa fa-bars"></i><a href="./viewHubungan">Hubungan</a></li>
-                            <li><i class="fa fa-share-square-o"></i><a href="./viewHubunganCustomer">Hubungan Costumer</a></li>
+                            <li><i class="fa fa-puzzle-piece"></i><a href="<?php echo base_url();?>viewAdmin">Admin</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="<?php echo base_url();?>viewInsertCustomer">Customer</a></li>
+                            <li><i class="fa fa-bars"></i><a href="<?php echo base_url();?>viewHubungan">Hubungan</a></li>
+                            <li><i class="fa fa-share-square-o"></i><a href="<?php echo base_url();?>viewHubunganCustomer">Hubungan Costumer</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Data</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="./dataCustomer">Data Customer</a></li>
-                            <li><i class="fa fa-table"></i><a href="./dataAdministrator">Data Administrator</a></li>
+                            <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataCustomer">Data Customer</a></li>
+                            <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataAdministrator">Data Administrator</a></li>
                         </ul>
                     </li>
                    

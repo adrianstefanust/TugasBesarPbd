@@ -162,14 +162,33 @@ class Administrator extends CI_Controller{
 		}
 	}
 	function loadDataAdministrator(){
-		$aData['title'] = "CRM - Data Administrator";
-		$this->load->model('ModelAdmin');
-		$aData['dataAdministrator'] = $this->ModelAdmin->getDataAdministrator();
-		//var_dump($aData['dataCustomer']);
-		$this->load->view('template/header', $aData);
-		$this->load->view('template/left-side');
-		$this->load->view('template/right-panel');
-		$this->load->view('data-administrator', $aData);
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Data Administrator";
+			$this->load->model('ModelAdmin');
+			$aData['dataAdministrator'] = $this->ModelAdmin->getDataAdministrator();
+			//var_dump($aData['dataCustomer']);
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('data-administrator', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function loadViewEditCustomer($idCustomer){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Edit Data Customer";
+			$this->load->model('ModelCustomer');
+			$aData['detailCustomer'] = $this->ModelCustomer->getDetailCustomer($idCustomer);
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('edit-customer', $aData);
+		}
+		else{
+			redirect('/login');
+		}
 	}
 }
 ?>

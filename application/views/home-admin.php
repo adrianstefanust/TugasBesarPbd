@@ -48,7 +48,7 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-2">
                     <div class="card-body pb-0">
-                        <a href="./viewInsertCustomer">
+                        <a href="<?php echo base_url();?>/viewInsertCustomer">
                             <p class="text-light">INSERT DATA CUSTOMER<br></p>
                         </a>
                     </div>
@@ -59,7 +59,7 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-3">
                     <div class="card-body pb-0">
-                        <a href="./viewHubungan">
+                        <a href="<?php echo base_url();?>/viewHubungan">
                             <p class="text-light">INSERT HUBUNGAN</p>
                         </a>
                         
@@ -72,7 +72,7 @@
             <div class="col-sm-6 col-lg-3">
                 <div class="card text-white bg-flat-color-4">
                     <div class="card-body pb-0">
-                        <a href="./viewHubunganCustomer">
+                        <a href="<?php echo base_url();?>/viewHubunganCustomer">
                             <p class="text-light">INSERT HUBUNGAN CUSTOMER</p>
                         </a>
                     </div>
@@ -90,7 +90,7 @@
                                 <div class="stat-digit">
                                     <?php if($totalInvestasi) : ?>
                                         <?php foreach($totalInvestasi as $total) : ?>
-                                            <?php echo $total['totalInvestasi'];?>
+                                            <?php echo number_format($total['totalInvestasi'], 0);?>
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </div>

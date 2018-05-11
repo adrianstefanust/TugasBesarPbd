@@ -27,5 +27,10 @@ class ModelCustomer extends CI_Model{
 		$result = $data->result_array();
 		return $result;
 	}
+	function getDetailCustomer($idCustomer){
+		$data = $this->db->query("call getDetailCustomer('$idCustomer')");
+		$result = $data->result_array();
+		return $result;
+	}
 }
 ?>

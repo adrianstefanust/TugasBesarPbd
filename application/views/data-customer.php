@@ -49,6 +49,7 @@
                         <th>Tanggal Lahir</th>
                         <th>Alamat</th>
                         <th>Nilai Investasi</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -60,7 +61,15 @@
                             <td><?php echo $customer['lokasi'];?></td>
                             <td><?php echo $customer['tanggalLahir'];?></td>
                             <td><?php echo $customer['alamat'];?></td>
-                            <td><?php echo $customer['nilaiInvestasi'];?></td>
+                            <td><?php echo number_format($customer['nilaiInvestasi']);?></td>
+                            <td>
+                                <a href="<?php echo base_url();?>editCustomer/<?php echo $customer['idCustomer']; ?>" class="btn btn-success btn-sm">
+                                    <i class="fa fa-dot-circle-o"></i> Ubah Data
+                                </a>
+                                <a href="<?php echo base_url();?>editCustomer/<?php echo $customer['idCustomer']; ?>" style="margin-top: 5px;" class="btn btn-danger btn-sm">
+                                    <i class="fa fa-ban"></i> Revert Data
+                                </a>
+                            </td>
                           </tr>
                         <?php endforeach; ?>
                       <?php endif; ?>
@@ -94,7 +103,7 @@
     <script src="<?php echo base_url("assets/js/lib/data-table/jszip.min.js"); ?>"></script>
     <script src="<?php echo base_url("assets/js/lib/data-table/pdfmake.min.js"); ?>"></script>
     <script src="<?php echo base_url("assets/js/lib/data-table/vfs_fonts.js"); ?>"></script>
-    <script src="<?php echo base_url("assets/js/lib/data-table/buttons.html5.min.js"); ?>"></script>
+    <script src="<?php //echo base_url("assets/js/lib/data-table/buttons.html5.min.js"); ?>"></script>
     <script src="<?php echo base_url("assets/js/lib/data-table/buttons.print.min.js"); ?>"></script>
     <script src="<?php echo base_url("assets/js/lib/data-table/buttons.colVis.min.js"); ?>"></script>
     <script src="<?php echo base_url("assets/js/lib/data-table/datatables-init.js"); ?>"></script>

@@ -48,6 +48,7 @@
                       <tr>
                         <th>Nama</th>
                         <th>Username</th>
+                        <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -57,6 +58,9 @@
                           <tr>
                             <td><?php echo $admin['nama'];?></td>
                             <td><?php echo $admin['username'];?></td>
+                            <td><button type="submit" class="btn btn-success btn-sm">
+                          <i class="fa fa-dot-circle-o"></i> Ubah Data
+                        </button></td>
                           </tr>
                         <?php endforeach; ?>
                       <?php endif; ?>

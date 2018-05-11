@@ -45,3 +45,23 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+
+USE `crm`;
+DROP procedure IF EXISTS `getDetailCustomer`;
+
+DELIMITER $$
+USE `crm`$$
+CREATE PROCEDURE `getDetailCustomer` (
+	in idCustomer int
+)
+BEGIN
+	SELECT customer.idCustomer, customer.nama, customer.alamat, customer.idLokasi, customer.tanggalLahir,
+    customer.nilaiInvestasi
+    FROM
+    customer
+    WHERE
+    customer.idCustomer = idCustomer;
+END$$
+
+DELIMITER ;
