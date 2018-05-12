@@ -36,8 +36,8 @@ class ModelCustomer extends CI_Model{
 	function editCustomer($idCustomer, $nama, $idLokasi, $tanggalLahir, $alamat, $nilaiInvestasi, $idAdmin){
 		$data = $this->db->query("call updateCustomer('$idCustomer', '$nama', '$idLokasi', '$tanggalLahir', '$alamat', '$nilaiInvestasi', '$idAdmin')");
 	}
-	function revertCustomer($idCustomer){
-
+	function revertCustomer($idCustomer, $idAdmin){
+		$data = $this->db->query("call revertCustomer('$idCustomer', '$idAdmin')");
 	}
 	function searchCustomer($namaCustomer, $idLokasi, $umurBawah, $umurAtas, $investasiBawah, $investasiAtas){
 		$data = $this->db->query("call advancedSearch('$namaCustomer', '$idLokasi', '$umurBawah', '$umurAtas', '$investasiBawah', '$investasiAtas')");

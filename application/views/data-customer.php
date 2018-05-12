@@ -74,9 +74,13 @@
                                 <a href="<?php echo base_url();?>editCustomer/<?php echo $customer['idCustomer']; ?>" class="btn btn-success btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Ubah Data
                                 </a>
-                                <a href="<?php echo base_url();?>revertCustomer/<?php echo $customer['idCustomer']; ?>" style="margin-top: 5px;" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-ban"></i> Revert Data
-                                </a>
+                                <form method="post" action="<?php echo base_url(); ?>revertCustomer">
+                                     <input type="hidden" name="idCustomer" value="<?php echo $customer['idCustomer']; ?>">
+                                     <input type="hidden" name="idAdmin" value="<?php echo $this->session->userdata('idAdmin'); ?>">
+                                     <button style="margin-top: 5px;" type="submit" href="" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-ban"></i> Revert Data Customer
+                                                </button>
+                                </form>
                             </td>
                           </tr>
                         <?php endforeach; ?>

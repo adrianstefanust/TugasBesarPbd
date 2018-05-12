@@ -213,9 +213,13 @@ class Administrator extends CI_Controller{
 			redirect('/login');
 		}
 	}
-	function revertCustomer($idCustomer){
+	function revertCustomer(){
 		if($this->session->userdata('logged_in')){
+			$idCustomer = $this->input->post('idCustomer');
+			$idAdmin = $this->input->post('idAdmin');
 			$this->load->model('ModelCustomer');
+			$this->ModelCustomer->revertCustomer($idCustomer, $idAdmin);
+			$this->session->set_flashdata('info_add', "Berhasil mengembalikan data Customer.");
 			redirect('/dataCustomer');
 		}
 		else{
@@ -337,12 +341,18 @@ class Administrator extends CI_Controller{
 		}
 	}
 	function getKarakteristikDaerah(){
-		$idLokasi = $this->input->post('idLokasi');
-		$this->load->model('ModelLokasi');
-		$aData['hasilKarakteristik'] = $this->ModelLokasi->getKarakteristikDaerah($idLokasi);
-		//var_dump($aData['hasilKarakteristik']);
-		$string = $this->load->view('data-karakteristik', $aData, true);
-		echo $string;
+		if($this->session->userdata('logged_in')){
+			$idLokasi = $this->input->post('idLokasi');
+			$this->load->model('ModelLokasi');
+			$aData['hasilKarakteristik'] = $this->ModelLokasi->getKarakteristikDaerah($idLokasi);
+			//var_dump($aData['hasilKarakteristik']);
+			$string = $this->load->view('data-karakteristik', $aData, true);
+			echo $string;
+		}
+		else{
+			redirect('/login');
+		}
 	}
+	
 }
 ?>
