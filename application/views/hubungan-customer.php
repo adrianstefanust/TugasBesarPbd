@@ -2,7 +2,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Data Customer</h1>
+                        <h1>Data Hubungan Customer</h1>
                     </div>
                 </div>
             </div>
@@ -12,7 +12,7 @@
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
                             <li><a href="#">Data</a></li>
-                            <li class="active">Data Customer</li>
+                            <li class="active">Data Hubungan Customer</li>
                         </ol>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Customer</strong>
+                            <strong class="card-title">Data Hubungan Customer</strong>
                         </div>
                         
                   
@@ -34,40 +34,38 @@
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
                     <div class="">
-                <div class="card text-white bg-flat-color-2">
-                    <div class="card-body pb-0">
-                        <a href="<?php echo base_url(); ?>viewInsertCustomer">
-                            <p class="text-light"><i class="fa fa-plus fa-lg"></i>&nbsp;
-                                              <span id="payment-button-amount">Insert Data Customer</span></p>
-                        </a>
+                        <div class="card text-white bg-flat-color-2">
+                            <div class="card-body pb-0">
+                                <a href="<?php echo base_url();?>viewHubunganCustomer">
+                                    <p class="text-light"><i class="fa fa-plus fa-lg"></i>&nbsp;
+                                              <span id="payment-button-amount">Insert Hubungan Customer</span></p>
+                                </a>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
                     <thead>
                       <tr>
-                        <th>Nama</th>
-                        <th>Lokasi</th>
-                        <th>Tanggal Lahir</th>
-                        <th>Alamat</th>
-                        <th>Nilai Investasi</th>
+                        <th>Customer 1</th>
+                        <th>Hubungan</th>
+                        <th>Customer 2</th>
+                        <th>Tanggal</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <?php if($dataCustomer) : ?>
-                        <?php foreach($dataCustomer as $customer) : ?>
+                      <?php if($hubunganCustomer) : ?>
+                        <?php foreach($hubunganCustomer as $hub) : ?>
                           
                           <tr>
-                            <td><?php echo $customer['nama'];?></td>
-                            <td><?php echo $customer['lokasi'];?></td>
-                            <td><?php echo $customer['tanggalLahir'];?></td>
-                            <td><?php echo $customer['alamat'];?></td>
-                            <td><?php echo number_format($customer['nilaiInvestasi']);?></td>
+                            <td><?php echo $hub['namaCust1'];?></td>
+                            <td><?php echo $hub['nama'];?></td>
+                            <td><?php echo $hub['namaCust2'];?></td>
+                            <td><?php echo $hub['tanggal'];?></td>
                             <td>
-                                <a href="<?php echo base_url();?>editCustomer/<?php echo $customer['idCustomer']; ?>" class="btn btn-success btn-sm">
+                                <a href="<?php echo base_url();?>detailHubunganCustomer/<?php echo $hub['idStatus'];?>" class="btn btn-success btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Ubah Data
                                 </a>
-                                <a href="<?php echo base_url();?>revertCustomer/<?php echo $customer['idCustomer']; ?>" style="margin-top: 5px;" class="btn btn-danger btn-sm">
+                                <a href="" class="btn btn-danger btn-sm">
                                     <i class="fa fa-ban"></i> Revert Data
                                 </a>
                             </td>

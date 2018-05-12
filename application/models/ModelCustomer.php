@@ -9,7 +9,7 @@ class ModelCustomer extends CI_Model{
 		return $query->result();
 	}
 	function insertHubunganCustomer($idHub, $customer1, $customer2){
-		$this->db->query("call insertHubunganCustomer('$idHub', '$customer1', '$customer2')");
+		$this->db->query("call insertHubunganCustomer('$customer1', '$customer2', '$idHub')");
 	}
 	function getDataCustomer(){
 		$data = $this->db->query("call getDataCustomer()");
@@ -34,6 +34,9 @@ class ModelCustomer extends CI_Model{
 	}
 	function editCustomer($idCustomer, $nama, $idLokasi, $tanggalLahir, $alamat, $nilaiInvestasi, $idAdmin){
 		$data = $this->db->query("call updateCustomer('$idCustomer', '$nama', '$idLokasi', '$tanggalLahir', '$alamat', '$nilaiInvestasi', '$idAdmin')");
+	}
+	function revertCustomer($idCustomer){
+
 	}
 }
 ?>

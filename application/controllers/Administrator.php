@@ -211,5 +211,59 @@ class Administrator extends CI_Controller{
 			redirect('/login');
 		}
 	}
+	function revertCustomer($idCustomer){
+		if($this->session->userdata('logged_in')){
+			$this->load->model('ModelCustomer');
+			redirect('/dataCustomer');
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function dataHubunganCustomer(){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Data Hubungan Customer";
+			$this->load->model('ModelHubungan');
+			$aData['hubunganCustomer'] = $this->ModelHubungan->getHubunganCustomer();
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('hubungan-customer', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function detailHubunganCustomer($idStatus){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Detail Hubungan Customer";
+			$this->load->model('ModelHubungan');
+			$aData['detailHubunganCustomer'] = $this->ModelHubungan->getDetailHubunganCustomer($idStatus);
+			$aData['listHubungan'] = $this->ModelHubungan->getJenisHubungan();
+			$aData['listHubungan'] = json_decode(json_encode($aData['listHubungan']),true);
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('edit-hubungan', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function editHubunganCustomer(){
+		if($this->session->userdata('logged_in')){
+			$idCustomer1 = $this->input->post('idCustomer1');
+			$idCustomer2 = $this->input->post('idCustomer2');
+			$idHubunganLama = $this->input->post('idHubunganLama');
+			$idHubunganBaru = $this->input->post('hubungan');
+			$tanggal = date("Y-m-d");
+			$this->load->model('ModelHubungan');
+			$this->ModelHubungan->editHubunganCustomer($idHubunganLama, $idHubunganBaru, $idCustomer1, $idCustomer2, $tanggal);
+			redirect('/dataHubunganCustomer');
+		}
+		else{
+			redirect('/login');
+		}
+	}
 }
 ?>

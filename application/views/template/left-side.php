@@ -34,6 +34,7 @@
                         <ul class="sub-menu children dropdown-menu">
                             <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataCustomer">Data Customer</a></li>
                             <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataAdministrator">Data Administrator</a></li>
+                            <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataHubunganCustomer">Data Hubungan Customer</a></li>
                         </ul>
                     </li>
                    

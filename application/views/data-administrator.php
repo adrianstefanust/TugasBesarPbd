@@ -33,11 +33,12 @@
                 
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                    <div class="col-md-86">
+                    <div class="">
                 <div class="card text-white bg-flat-color-1">
                     <div class="card-body pb-0">
-                        <a href="./viewAdmin">
-                        <p class="text-light">INSERT DATA ADMINISTRATOR<br></p>
+                        <a href="<?php echo base_url(); ?>viewAdmin">
+                        <p class="text-light"><i class="fa fa-plus fa-lg"></i>&nbsp;
+                                              <span id="payment-button-amount">Insert Data Administrator</span></p>
                         </a>
 
                     </div>
