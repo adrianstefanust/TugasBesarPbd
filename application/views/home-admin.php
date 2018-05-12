@@ -120,7 +120,33 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-sm-12">
+                <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                  KARAKTERISTIK DAERAH
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-3">
+                <div class="">
+                    <div class="form-group">
+                        <form>
+                            <div class="form-group">
+                                Pilih Lokasi : <select name="lokasi" class="form-control">
+                                <?php if($lokasi) : ?>
+                                    <?php foreach($lokasi as $lok) : ?>
+                                        <option value="<?php echo $lok['idLokasi']; ?>"><?php echo $lok['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                </select>
+                                <br>
+                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
+                                              <i class="fa fa-search fa-lg"></i>&nbsp;
+                                              <span id="payment-button-amount">Search</span>
+                                          </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
 

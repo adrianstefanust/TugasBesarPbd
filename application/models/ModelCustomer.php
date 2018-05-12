@@ -25,6 +25,7 @@ class ModelCustomer extends CI_Model{
 	function getJumlahCustomer(){
 		$data = $this->db->query("call getJumlahCustomer()");
 		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
 		return $result;
 	}
 	function getDetailCustomer($idCustomer){

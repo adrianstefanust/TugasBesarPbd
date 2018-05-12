@@ -54,7 +54,7 @@
                                       </div>
                                       <div class="form-group">
                                           <label for="tanggal_lahir" class="control-label mb-1">Rentang Umur</label>
-                                          <div class="">
+                                          <div class="" style="">
                                           <input id="umur_awal" name="umur_awal" type="number" class="form-control col-sm-3" value=""> - 
                                           <input id="umur_akhir" name="umur_akhir" type="number" class="form-control col-sm-3" value="">
                                           </div>
