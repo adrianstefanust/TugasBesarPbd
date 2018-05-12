@@ -181,7 +181,7 @@ CREATE TABLE `perubahancustomer` (
   KEY `idAdmin` (`idAdmin`),
   CONSTRAINT `perubahancustomer_ibfk_1` FOREIGN KEY (`idCustomer`) REFERENCES `customer` (`idCustomer`),
   CONSTRAINT `perubahancustomer_ibfk_2` FOREIGN KEY (`idAdmin`) REFERENCES `admin` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -190,7 +190,7 @@ CREATE TABLE `perubahancustomer` (
 
 LOCK TABLES `perubahancustomer` WRITE;
 /*!40000 ALTER TABLE `perubahancustomer` DISABLE KEYS */;
-INSERT INTO `perubahancustomer` VALUES (1,121,'Customer','idLokasi','6',0,'2018-05-11',1);
+INSERT INTO `perubahancustomer` VALUES (1,121,'Customer','idLokasi','6',0,'2018-05-11',1),(2,121,'Customer','nilaiInvestasi','30000',NULL,'2018-05-12',1),(3,121,'Customer','nilaiInvestasi','40000',NULL,'2018-05-12',1);
 /*!40000 ALTER TABLE `perubahancustomer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -792,18 +792,27 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8 */ ;
 /*!50003 SET collation_connection  = utf8_general_ci */ ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `karakteristikDaerah`(
-in namaKarakteristik varchar(100)
-)
+ in daerah int
+ )
 BEGIN
-    declare iterator int;
-	set iterator =0;
-    drop table IF EXISTS tblHasil;
-	drop table IF EXISTS tblParent;
-    drop table IF EXISTS tblChild;
+DECLARE rata2 int;
+declare p int;
+set p =1;
+drop table IF EXISTS tblResult;
+drop table IF EXISTS tblCustomer;
+drop table IF EXISTS tblHasil;
+drop table IF EXISTS tblParent;
+drop table IF EXISTS tblChild;
 
+CREATE TEMPORARY TABLE tblResult (
+		nama varchar(100), 
+        nilai double);
+CREATE TEMPORARY TABLE tblCustomer (
+		id varchar(100), 
+        umur int);
    CREATE TEMPORARY TABLE tblHasil 
 (
 	id int
@@ -816,36 +825,85 @@ BEGIN
 (
 	id int
 );
-insert into tblParent select idLokasi from lokasi where idParent is null;
-	
-	while (iterator < 3)
+insert into tblParent select idLokasi from lokasi where idLokasi = daerah;
+insert into tblHasil select idLokasi from lokasi where idLokasi = daerah;
+	while ( p != 0)
 	do
-		insert into tblChild 
-        select idLokasi 
+		insert into 
+			tblChild 
+        select 
+			idLokasi 
         from 
 			lokasi join 
 			tblParent
 		on tblParent.id = lokasi.idParent;
         
-        if iterator = 2
-		then
-        insert into tblHasil 
-        select id from tblChild;
-        end if;
+       
+        insert into 
+			tblHasil 
+        select 
+			id 
+		from 
+			tblChild;
+        
         
         delete from tblParent;
         
-        insert into tblParent
-        select id from tblChild;
+        insert into 
+			tblParent
+        select 
+			id 
+		from 
+			tblChild;
         
         delete from tblChild;
         
-        set iterator = iterator + 1;
-        
+        set p=  (select count(id) from tblParent);
     end while;
-    
-    select nama from lokasi join tblHasil on tblHasil.id = lokasi.idLokasi;
    
+
+insert into tblResult
+select 'rata_rata_investasi',(
+select avg(nilaiInvestasi ) from customer cross join tblHasil where idLokasi = tblHasil.id);
+
+
+
+    insert into tblResult
+select 'jumlah_Investasi',(
+		select sum(nilaiInvestasi) 
+			from 
+				customer cross join tblHasil 
+            where 
+				idLokasi = tblHasil.id);
+	
+
+	insert into 
+		tblCustomer 
+	select 
+		idCustomer,
+        TIMESTAMPDIFF(year,customer.tanggalLAhir,CURDATE()) 
+	from 
+		customer cross join 
+        tblHasil 
+	where idLokasi=tblHasil.id;
+
+	set rata2=(select avg(umur) from tblCustomer);
+	insert into 
+		tblResult 
+	select 'rata_rata_umur',rata2;
+
+
+insert into tblResult
+select 'jumlah_customer',(
+	select count(idCustomer) 
+			from 
+				customer cross join tblHasil 
+            where 
+				idLokasi = tblHasil.id);
+select * from tblResult;                
+
+
+
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -958,6 +1016,82 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `revertCustomer` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `revertCustomer`(
+id int,
+idAdmin int
+)
+BEGIN
+DECLARE v_finished INTEGER DEFAULT 0;
+DECLARE namaField1 varchar(1000);
+declare valueSebelum1 varchar(1000);
+DECLARE waktu datetime;
+DECLARE temp varchar(1000);
+declare myCursor cursor for
+    SELECT namaField,valueSebelum
+    FROM perubahanCustomer 
+    WHERE 
+	idCustomer = id AND 
+    tanggalBerubah = (SELECT
+		tanggalBerubah
+		FROM perubahancustomer
+		WHERE idCustomer = id
+		ORDER BY tanggalberubah desc
+		LIMIT 1);
+	
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET v_finished = 1;
+	open myCursor;
+	SET waktu= (SELECT NOW());
+    get_id:LOOP
+	
+    IF v_finished = 1 
+		THEN LEAVE get_id;
+	END IF;
+    SELECT valueSebelum1;
+		IF namaField1 = 'nilaiInvestasi' THEN
+			SET temp = (SELECT Customer.nilaiInvestasi FROM Customer WHERE id = idCustomer);
+            call insertPerubahanCustomer(id,'Customer','nilaiInvestasi',temp,NULL,waktu,idAdmin);
+			UPDATE Customer SET nilaiInvestasi = valueSebelum1 WHERE Customer.idCustomer = id;
+		END IF;
+		IF namaField1 = 'alamat' THEN
+			SET temp = (SELECT Customer.alamat FROM Customer WHERE id = idCustomer);
+			call insertPerubahanCustomer(id,'Customer','alamat',temp,NULL,waktu,idAdmin);
+			UPDATE Customer SET alamat = valueSebelum1 WHERE Customer.idCustomer = id;
+		END IF;
+		IF namaField1 = 'nama' THEN
+			SET temp = (SELECT Customer.nama FROM Customer WHERE id = idCustomer);
+            call insertPerubahanCustomer(id,'Customer','nama',temp,NULL,waktu,idAdmin);
+			UPDATE Customer SET nama = valueSebelum1 WHERE Customer.idCustomer = id;
+		END IF;
+		IF namaField1 = 'idLokasi' THEN
+			SET temp = (SELECT Customer.idLokasi FROM Customer WHERE id = idCustomer);
+			call insertPerubahanCustomer(id,'Customer','idLokasi',temp,NULL,waktu,idAdmin);
+            UPDATE Customer SET idLokasi = valueSebelum1 WHERE Customer.idCustomer = id;
+		END IF;
+		IF namaField1 = 'tanggalLahir' THEN
+			SET temp = (SELECT Customer.tanggalLahir FROM Customer WHERE id = idCustomer);
+             call insertPerubahanCustomer(id,'Customer','tanggalLahir',temp,NULL,waktu,idAdmin);
+			UPDATE Customer SET tanggalLahir = valueSebelum1 WHERE Customer.idCustomer = id;
+		END IF;
+    FETCH myCursor INTO namaField1,valueSebelum1;
+    END LOOP get_id;
+    CLOSE myCursor;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `revertHubungan` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1019,57 +1153,87 @@ in idAdmin int
 BEGIN
 
  DECLARE tempNama varchar(100);
- DECLARE tempidLokasi int;
- DECLARE tempTanggalLahir date;
- DECLARE tempAlamat varchar(100);
- DECLARE tempNilaiInvestasi int(11);
+    DECLARE tempidLokasi int;
+    DECLARE tempTanggalLahir date;
+    DECLARE tempAlamat varchar(100);
+    DECLARE tempNilaiInvestasi int(11);
     DECLARE waktu datetime;
-    
- CREATE TEMPORARY TABLE customerSementara (
-  nama varchar(100), 
+    DECLARE ct int;
+    DECLARE idsb int;
+    CREATE TEMPORARY TABLE customerSementara (
+        nama varchar(100), 
         idLokasi int,
         tanggalLahir date,
         alamat varchar(100),
         nilaiInvestasi int);
     INSERT INTO customerSementara
- SELECT
-  Customer.nama,
+    SELECT
+        Customer.nama,
         Customer.idLokasi,
         Customer.tanggalLahir,
         Customer.alamat,
         Customer.nilaiInvestasi
- FROM 
-  Customer
- WHERE
-  Customer.idCustomer = idCustomer;
+    FROM 
+        Customer
+    WHERE
+        Customer.idCustomer = idCustomer;
         
- Select customerSementara.nama into tempNama FROM customerSementara;
+    Select customerSementara.nama into tempNama FROM customerSementara;
     Select customerSementara.idLokasi into tempIdLokasi FROM customerSementara;
     Select customerSementara.tanggalLahir into tempTanggalLahir FROM customerSementara;
     Select customerSementara.alamat into tempAlamat FROM customerSementara;
     Select customerSementara.nilaiInvestasi into tempNilaiInvestasi FROM customerSementara;
- SELECT NOW() INTO waktu;
- 
-    IF tempNama != nama THEN 
-  call insertPerubahanCustomer(idcustomer,'Customer','nama',tempnama,0,waktu,idAdmin);
-  UPDATE customer SET customer.nama = nama WHERE customer.idCustomer = idCustomer;
+    SELECT NOW() INTO waktu;
+    SET ct = (SELECT COUNT(idCustomer) FROM perubahanCustomer WHERE perubahanCustomer.idCustomer = idCustomer);
+    IF ct  = 0 THEN
+        IF tempNama != nama THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','nama',tempnama,NULL,waktu,idAdmin);
+            UPDATE customer SET customer.nama = nama WHERE customer.idCustomer = idCustomer;
+        END IF;
+        IF tempIdLokasi != idLokasi THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','idLokasi',tempidLokasi,NULL,waktu,idAdmin);
+            UPDATE customer SET customer.idLokasi = idLokasi WHERE customer.idCustomer = idCustomer;
+        END IF;
+        IF tempTanggalLahir != tanggalLahir THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','tanggalLahir',temptanggalLahir,NULL,waktu,idAdmin);
+            UPDATE customer SET customer.tanggalLahir = tanggalLahir WHERE customer.idCustomer = idCustomer;
+        END IF;
+        IF tempAlamat != alamat THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','alamat',tempalamat,NULL,waktu,idAdmin);
+            UPDATE customer SET customer.alamat = alamat WHERE customer.idCustomer = idCustomer;
+        END IF;
+        IF tempNilaiInvestasi != nilaiInvestasi THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','nilaiInvestasi',tempNilaiInvestasi,NULL,waktu,idAdmin);
+            UPDATE customer SET customer.nilaiInvestasi = nilaiInvestasi WHERE customer.idCustomer = idCustomer;
+        END IF;
+    ELSE
+        SET idsb = (SELECT id FROM perubahanCustomer WHERE namaField = 'nama'ORDER BY id DESC LIMIT 1);
+        SELECT idsb;
+        IF tempNama != nama THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','nama',tempnama,idsb,waktu,idAdmin);
+            UPDATE customer SET customer.nama = nama WHERE customer.idCustomer = idCustomer;
+        END IF;
+        SET idsb = (SELECT id FROM perubahanCustomer WHERE namaField = 'idLokasi'ORDER BY id DESC LIMIT 1);
+        IF tempIdLokasi != idLokasi THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','idLokasi',tempidLokasi,idsb,waktu,idAdmin);
+            UPDATE customer SET customer.idLokasi = idLokasi WHERE customer.idCustomer = idCustomer;
+        END IF;
+        SET idsb = (SELECT id FROM perubahanCustomer WHERE namaField = 'tanggalLahir'ORDER BY id DESC LIMIT 1);
+        IF tempTanggalLahir != tanggalLahir THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','tanggalLahir',temptanggalLahir,idsb,waktu,idAdmin);
+            UPDATE customer SET customer.tanggalLahir = tanggalLahir WHERE customer.idCustomer = idCustomer;
+        END IF;
+        SET idsb = (SELECT id FROM perubahanCustomer WHERE namaField = 'alamat'ORDER BY id DESC LIMIT 1);
+        IF tempAlamat != alamat THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','alamat',tempalamat,idsb,waktu,idAdmin);
+            UPDATE customer SET customer.alamat = alamat WHERE customer.idCustomer = idCustomer;
+        END IF;
+        SET idsb = (SELECT id FROM perubahanCustomer WHERE namaField = 'nilaiInvestasi'ORDER BY id DESC LIMIT 1);
+        IF tempNilaiInvestasi != nilaiInvestasi THEN 
+            call insertPerubahanCustomer(idcustomer,'Customer','nilaiInvestasi',tempNilaiInvestasi,idsb,waktu,idAdmin);
+            UPDATE customer SET customer.nilaiInvestasi = nilaiInvestasi WHERE customer.idCustomer = idCustomer;
+        END IF;
     END IF;
-    IF tempIdLokasi != idLokasi THEN 
-  call insertPerubahanCustomer(idcustomer,'Customer','idLokasi',tempidLokasi,0,waktu,idAdmin);
-        UPDATE customer SET customer.idLokasi = idLokasi WHERE customer.idCustomer = idCustomer;
-    END IF;
-    IF tempTanggalLahir != tanggalLahir THEN 
-  call insertPerubahanCustomer(idcustomer,'Customer','tanggalLahir',temptanggalLahir,0,waktu,idAdmin);
-        UPDATE customer SET customer.tanggalLahir = tanggalLahir WHERE customer.idCustomer = idCustomer;
-    END IF;
-    IF tempAlamat != alamat THEN 
-  call insertPerubahanCustomer(idcustomer,'Customer','alamat',tempalamat,0,waktu,idAdmin);
-        UPDATE customer SET customer.alamat = alamat WHERE customer.idCustomer = idCustomer;
-    END IF;
-    IF tempNilaiInvestasi != nilaiInvestasi THEN 
-  call insertPerubahanCustomer(idcustomer,'Customer','nilaiInvestasi',tempNilaiInvestasi,NULL,waktu,idAdmin);
-        UPDATE customer SET customer.nilaiInvestasi = nilaiInvestasi WHERE customer.idCustomer = idCustomer;
- END IF;
     DROP TEMPORARY Table customerSementara;
 END ;;
 DELIMITER ;
@@ -1122,4 +1286,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-12 15:09:46
+-- Dump completed on 2018-05-12 23:57:09
