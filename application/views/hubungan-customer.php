@@ -65,9 +65,25 @@
                                 <a href="<?php echo base_url();?>detailHubunganCustomer/<?php echo $hub['idStatus'];?>" class="btn btn-success btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Ubah Data
                                 </a>
-                                <a href="" class="btn btn-danger btn-sm">
-                                    <i class="fa fa-ban"></i> Revert Data
-                                </a>
+                                <form method="post" action="<?php echo base_url(); ?>revertHubunganCustomer">
+                                    <?php if($hubunganCustomer) : ?>
+                                        <?php foreach($hubunganCustomer as $hub2) : ?>
+                                            <?php
+                                            if($hub2['idCustomer1'] == $hub['idCustomer1'] && $hub2['idCustomer2'] == $hub['idCustomer2'] && $hub2['idhubungan'] == $hub['idhubungan']){
+                                                ?>
+                                                <input type="hidden" name="revCust1" value="<?php echo $hub2['idCustomer1']; ?>">
+                                                <input type="hidden" name="revCust2" value="<?php echo $hub2['idCustomer2']; ?>">
+                                                <input type="hidden" name="revIdHub" value="<?php echo $hub2['idhubungan']; ?>">
+                                                <button style="margin-top: 5px;" type="submit" href="" class="btn btn-danger btn-sm">
+                                                    <i class="fa fa-ban"></i> Revert Data
+                                                </button>
+                                                <?php
+                                            }
+                                            ?>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                                </form>
+                                
                             </td>
                           </tr>
                         <?php endforeach; ?>

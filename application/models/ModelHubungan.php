@@ -22,5 +22,8 @@ class ModelHubungan extends CI_Model{
 	function editHubunganCustomer($idHubunganLama, $idHubunganBaru, $idCustomer1, $idCustomer2, $tanggal){
 		$data = $this->db->query("call updateHubungan('$idHubunganLama','$idHubunganBaru','$idCustomer1','$idCustomer2', '$tanggal')");
 	}
+	function revertHubunganCustomer($idCustomer1, $idCustomer2, $idHub){
+		$data = $this->db->query("call revertHubungan('$idCustomer1','$idCustomer2', '$idHub')");
+	}
 }
 ?>

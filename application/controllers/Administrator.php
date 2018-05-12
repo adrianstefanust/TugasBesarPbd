@@ -265,5 +265,19 @@ class Administrator extends CI_Controller{
 			redirect('/login');
 		}
 	}
+	function revertHubunganCustomer(){
+		if($this->session->userdata('logged_in')){
+			$idCustomer1 = $this->input->post('revCust1');
+			$idCustomer2 = $this->input->post('revCust2');
+			$idHubungan = $this->input->post('revIdHub');
+			//die($idCustomer1);
+			$this->load->model('ModelHubungan');
+			$this->ModelHubungan->revertHubunganCustomer($idCustomer1, $idCustomer2, $idHubungan);
+			redirect('/dataHubunganCustomer');
+		}
+		else{
+			redirect('/login');
+		}
+	}
 }
 ?>

@@ -68,6 +68,7 @@ $route['editAttempt'] = 'Administrator/editCustomer';
 $route['dataHubunganCustomer'] = 'Administrator/dataHubunganCustomer';
 $route['detailHubunganCustomer/(:any)'] = 'Administrator/detailHubunganCustomer/$1';
 $route['editHubunganCustomer'] = 'Administrator/editHubunganCustomer';
+$route['revertHubunganCustomer'] = 'Administrator/revertHubunganCustomer';
 $route['attemptLogin'] = 'Login/attemptLogin';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

@@ -120,7 +120,7 @@ CREATE TABLE `hubungancustomer` (
   CONSTRAINT `hubungancustomer_ibfk_1` FOREIGN KEY (`idCustomer1`) REFERENCES `customer` (`idCustomer`),
   CONSTRAINT `hubungancustomer_ibfk_2` FOREIGN KEY (`idCustomer2`) REFERENCES `customer` (`idCustomer`),
   CONSTRAINT `hubungancustomer_ibfk_3` FOREIGN KEY (`idHubungan`) REFERENCES `hubungan` (`idHubungan`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `hubungancustomer` (
 
 LOCK TABLES `hubungancustomer` WRITE;
 /*!40000 ALTER TABLE `hubungancustomer` DISABLE KEYS */;
-INSERT INTO `hubungancustomer` VALUES (2,121,122,1,'2018-05-11',1,NULL),(3,121,122,3,'2018-05-12',0,1),(4,19,17,12,'2018-05-12',0,NULL),(5,19,17,10,'2018-05-12',0,12),(6,19,17,3,'2018-05-12',1,10);
+INSERT INTO `hubungancustomer` VALUES (2,121,122,1,'2018-05-11',1,NULL),(3,121,122,3,'2018-05-12',0,1),(4,19,17,12,'2018-05-12',0,NULL),(5,19,17,10,'2018-05-12',0,12),(6,19,17,3,'2018-05-12',0,10),(7,19,17,1,'2018-05-12',1,12);
 /*!40000 ALTER TABLE `hubungancustomer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -349,6 +349,8 @@ BEGIN
 	Select 
     cust1.nama as namaCust1,
     cust2.nama as namaCust2, 
+    hubungancustomer.idCustomer1,
+    hubungancustomer.idCustomer2,
     hubungancustomer.idStatus,
     hubungancustomer.tanggal,
     hubungancustomer.idhubungan, 
@@ -920,11 +922,14 @@ BEGIN
     SELECT idStatus into idStatusSekarang FROM hubungancustomer WHERE hubungancustomer.idCustomer1 = idCustomer1 AND hubungancustomer.idCustomer2 = idCustomer2
     AND hubungancustomer.idHubungan = idHubungan AND hubungancustomer.isValid = 1;
     
-    SELECT idStatus into idStatusSebelumnya FROM hubungancustomer WHERE hubungancustomer.idCustomer1 = idCustomer1 AND hubungancustomer.idCustomer2 = idCustomer2
-    AND hubungancustomer.idHubungan = idHubSebelumnya AND hubungancustomer.isValid = 0;
-    UPDATE hubungancustomer SET hubungancustomer.isValid = 0 WHERE hubunganCustomer.idStatus = idStatusSekarang;
-    UPDATE hubungancustomer SET hubungancustomer.isValid = 1 WHERE hubunganCustomer.idStatus = idStatusSebelumnya;
-    
+    if idHubSebelumnya is not null
+    THEN
+		SELECT idStatus into idStatusSebelumnya FROM hubungancustomer WHERE hubungancustomer.idCustomer1 = idCustomer1 AND hubungancustomer.idCustomer2 = idCustomer2
+		AND hubungancustomer.idHubungan = idHubSebelumnya AND hubungancustomer.isValid = 0;
+		UPDATE hubungancustomer SET hubungancustomer.isValid = 0 WHERE hubunganCustomer.idStatus = idStatusSekarang;
+		UPDATE hubungancustomer SET hubungancustomer.isValid = 1 WHERE hubunganCustomer.idStatus = idStatusSebelumnya;
+    END IF;
+   
     SELECT * FROM hubungancustomer;
 END ;;
 DELIMITER ;
@@ -1057,4 +1062,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-12 13:23:10
+-- Dump completed on 2018-05-12 13:52:05
