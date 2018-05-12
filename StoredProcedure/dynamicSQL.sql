@@ -1,4 +1,4 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `dynamicsql`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `advancedSearch`(
 nama varchar(1000),
 idLokasi int,
 umurBawah int,

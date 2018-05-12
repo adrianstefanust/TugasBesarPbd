@@ -37,6 +37,12 @@
                             <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataHubunganCustomer">Data Hubungan Customer</a></li>
                         </ul>
                     </li>
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-search"></i>Advanced Search</a>
+                        <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-search"></i><a href="<?php echo base_url();?>advancedSearch">Advanced Search</a></li>
+                        </ul>
+                    </li>
                    
                 </ul>
             </div><!-- /.navbar-collapse -->

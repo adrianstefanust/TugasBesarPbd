@@ -6,6 +6,8 @@ class Administrator extends CI_Controller{
 			$this->load->model('ModelCustomer');
 			$aData['totalInvestasi'] = $this->ModelCustomer->getTotalRataanInvestasi();
 			$aData['jumlahCustomer'] = $this->ModelCustomer->getJumlahCustomer();
+			$this->load->model('ModelLokasi');
+			$aData['lokasi'] = $this->ModelLokasi->getAllLokasi();
 			$this->load->view('template/header', $aData);
 			$this->load->view('template/left-side');
 			$this->load->view('template/right-panel');
@@ -259,6 +261,7 @@ class Administrator extends CI_Controller{
 			$tanggal = date("Y-m-d");
 			$this->load->model('ModelHubungan');
 			$this->ModelHubungan->editHubunganCustomer($idHubunganLama, $idHubunganBaru, $idCustomer1, $idCustomer2, $tanggal);
+			$this->session->set_flashdata('info_add', "Berhasil menambahkan Edit Hubungan Customer");
 			redirect('/dataHubunganCustomer');
 		}
 		else{
@@ -278,6 +281,68 @@ class Administrator extends CI_Controller{
 		else{
 			redirect('/login');
 		}
+	}
+	function loadAdvancedSearch(){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Advanced Search";
+			$this->load->model('ModelLokasi');
+			$res = $this->ModelLokasi->getLokasiKota();
+			$aData['lokasi'] = json_decode(json_encode($res),true);
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('form-advanced-search', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function resultAdvancedSearch(){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Hasil Pencarian";
+			$namaCustomer = $this->input->post('namaCustomer');
+			if($namaCustomer == ""){
+				$namaCustomer = NULL;
+			}
+			$idLokasi = $this->input->post('lokasi');
+			if($idLokasi == ""){
+				$idLokasi = NULL;
+			}
+			$umurAwal = $this->input->post('umur_awal');
+			if($umurAwal == ""){
+				$umurAwal = NULL;
+			}
+			$umurAkhir = $this->input->post('umur_akhir');
+			if($umurAkhir == ""){
+				$umurAkhir = NULL;
+			}
+			$investasiAwal = $this->input->post('investasi_awal');
+			if($investasiAwal == ""){
+				$investasiAwal = NULL;
+			}
+			$investasiAkhir = $this->input->post('investasi_akhir');
+			if($investasiAkhir == ""){
+				$investasiAkhir = NULL;
+			}
+			
+			$this->load->model('ModelCustomer');
+			$aData['dataCustomer'] = $this->ModelCustomer->searchCustomer($namaCustomer, $idLokasi, $umurAwal, $umurAkhir, $investasiAwal, $investasiAkhir);
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('result-search', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function getKarakteristikDaerah(){
+		$idLokasi = $this->input->post('idLokasi');
+		$this->load->model('ModelLokasi');
+		$aData['hasilKarakteristik'] = $this->ModelLokasi->getKarakteristikDaerah($idLokasi);
+		//var_dump($aData['hasilKarakteristik']);
+		$string = $this->load->view('data-karakteristik', $aData, true);
+		echo $string;
 	}
 }
 ?>

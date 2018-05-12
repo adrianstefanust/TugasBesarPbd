@@ -22,30 +22,52 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="content mt-3">
+            <div class="col-md-12">
+               <div class="col-md-3">
+                <section class="card">
+                    <div class="twt-feed blue-bg">
+                        <div class="corner-ribon black-ribon">
+                            <i class="fa fa-twitter"></i>
+                        </div>
+                        <div class="fa fa-twitter wtt-mark"></div>
 
-            <div class="col-sm-12">
-                <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                  QUICK ACCESS
-                </div>
-            </div>
-
-
-           <div class="col-sm-6 col-lg-3">
-                <div class="card text-white bg-flat-color-1">
+                        <div class="media">
+                            <a href="#">
+                                <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
+                            </a>
+                            <div class="media-body">
+                                <h3 class="text-white display-6">Vincent Joel</h3>
+                                <p class="text-light">Mahasiswa Bocuan</p>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="twt-footer">
+                        <a href="#"><i class="fa fa-camera"></i></a>
+                        <a href="#"><i class="fa fa-map-marker"></i></a>
+                        Parahyangan Catholic University
+                        <span class="pull-right">
+                            2015
+                        </span>
+                    </footer>
+                </section>
+                </div> 
+                <div class="col-md-9">
+                    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                    <h4>
+                    QUICK ACCESS</h4>
+                    </div>
+                    <div class="col-md-5">
+                    <div class="card text-white bg-flat-color-1">
                     <div class="card-body pb-0">
-                        <a href="./viewAdmin">
+                        <a href="<?php echo base_url();?>viewAdmin">
                         <p class="text-light">INSERT DATA ADMINISTRATOR<br></p>
                         </a>
-
                     </div>
-
+                    </div>
                 </div>
-            </div>
-            <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3">
+                    <div class="col-md-5">
                 <div class="card text-white bg-flat-color-2">
                     <div class="card-body pb-0">
                         <a href="<?php echo base_url();?>/viewInsertCustomer">
@@ -54,28 +76,24 @@
                     </div>
                 </div>
             </div>
-            <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-md-5">
                 <div class="card text-white bg-flat-color-3">
                     <div class="card-body pb-0">
                         <a href="<?php echo base_url();?>/viewHubungan">
                             <p class="text-light">INSERT HUBUNGAN</p>
                         </a>
-                        
-
                     </div>
                 </div>
             </div>
-            <!--/.col-->
-
-            <div class="col-sm-6 col-lg-3">
+            <div class="col-md-5">
                 <div class="card text-white bg-flat-color-4">
                     <div class="card-body pb-0">
                         <a href="<?php echo base_url();?>/viewHubunganCustomer">
                             <p class="text-light">INSERT HUBUNGAN CUSTOMER</p>
                         </a>
                     </div>
+                </div>
+            </div>
                 </div>
             </div>
             <!--/.col-->
@@ -120,7 +138,44 @@
                     </div>
                 </div>
             </div>
-
+            <div class="col-sm-12">
+                <div class="alert  alert-danger alert-dismissible fade show" role="alert">
+                  <h4>
+                  KARAKTERISTIK DAERAH</h4>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <form id="karakteristik">
+                            <div class="form-group">
+                                Pilih Lokasi : <select id="lokasi" name="lokasi" class="form-control">
+                                    <option selected disabled>-- Please Select Option --</option>
+                                <?php if($lokasi) : ?>
+                                    <?php foreach($lokasi as $lok) : ?>
+                                        <option value="<?php echo $lok['idLokasi']; ?>"><?php echo $lok['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                </select>
+                                <br>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <th>Rata - Rata Investasi</th>
+                            <th>Jumlah Investasi</th>
+                            <th>Rata - Rata Umur</th>
+                            <th>Jumlah Customer</th>
+                        </thead>
+                        <tbody id="data-karakteristik">
+                            <td colspan="4">No Data.<br>Silahkan Pilih Lokasi terlebih dahulu</td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
 
@@ -157,6 +212,22 @@
             } );
         } )( jQuery );
     </script>
+    <script>
+        $( document ).ready(function() {
+            $( "#lokasi" ).change(function( event ) {
+                var id = $("#lokasi").val();
+                event.preventDefault();
+                $.ajax({
 
+                    url: "http://localhost/" + "CRM/karakteristikDaerah",
+                    method: "post",
+                    data: {idLokasi : id},
+                    success: function(data) {
+                        $("#data-karakteristik").html(data);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>

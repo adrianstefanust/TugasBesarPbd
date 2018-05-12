@@ -25,6 +25,7 @@ class ModelCustomer extends CI_Model{
 	function getJumlahCustomer(){
 		$data = $this->db->query("call getJumlahCustomer()");
 		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
 		return $result;
 	}
 	function getDetailCustomer($idCustomer){
@@ -37,6 +38,11 @@ class ModelCustomer extends CI_Model{
 	}
 	function revertCustomer($idCustomer){
 
+	}
+	function searchCustomer($namaCustomer, $idLokasi, $umurBawah, $umurAtas, $investasiBawah, $investasiAtas){
+		$data = $this->db->query("call advancedSearch('$namaCustomer', '$idLokasi', '$umurBawah', '$umurAtas', '$investasiBawah', '$investasiAtas')");
+		$result = $data->result_array();
+		return $result;
 	}
 }
 ?>
