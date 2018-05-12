@@ -336,5 +336,13 @@ class Administrator extends CI_Controller{
 			redirect('/login');
 		}
 	}
+	function getKarakteristikDaerah(){
+		$idLokasi = $this->input->post('idLokasi');
+		$this->load->model('ModelLokasi');
+		$aData['hasilKarakteristik'] = $this->ModelLokasi->getKarakteristikDaerah($idLokasi);
+		//var_dump($aData['hasilKarakteristik']);
+		$string = $this->load->view('data-karakteristik', $aData, true);
+		echo $string;
+	}
 }
 ?>

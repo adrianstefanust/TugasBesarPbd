@@ -69,6 +69,7 @@ $route['dataHubunganCustomer'] = 'Administrator/dataHubunganCustomer';
 $route['detailHubunganCustomer/(:any)'] = 'Administrator/detailHubunganCustomer/$1';
 $route['editHubunganCustomer'] = 'Administrator/editHubunganCustomer';
 $route['revertHubunganCustomer'] = 'Administrator/revertHubunganCustomer';
+$route['karakteristikDaerah'] = 'Administrator/getKarakteristikDaerah';
 $route['advancedSearch'] = 'Administrator/loadAdvancedSearch';
 $route['search'] = 'Administrator/resultAdvancedSearch';
 $route['attemptLogin'] = 'Login/attemptLogin';

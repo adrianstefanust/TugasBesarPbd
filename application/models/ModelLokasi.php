@@ -11,5 +11,11 @@ class ModelLokasi extends CI_Model{
 		$query = $this->db->get('lokasi');
 		return $query->result_array();
 	}
+	function getKarakteristikDaerah($idLokasi){
+		$data = $this->db->query("call karakteristikDaerah('$idLokasi')");
+		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
+		return $result;
+	}
 }
 ?>

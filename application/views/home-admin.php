@@ -27,7 +27,8 @@
 
             <div class="col-sm-12">
                 <div class="alert  alert-success alert-dismissible fade show" role="alert">
-                  QUICK ACCESS
+                  <h4>
+                  QUICK ACCESS</h4>
                 </div>
             </div>
 
@@ -122,15 +123,17 @@
             </div>
             <div class="col-sm-12">
                 <div class="alert  alert-danger alert-dismissible fade show" role="alert">
-                  KARAKTERISTIK DAERAH
+                  <h4>
+                  KARAKTERISTIK DAERAH</h4>
                 </div>
             </div>
-            <div class="col-sm-6 col-lg-3">
-                <div class="">
+            <div class="col-md-12">
+                <div class="col-md-6">
                     <div class="form-group">
-                        <form>
+                        <form id="karakteristik">
                             <div class="form-group">
-                                Pilih Lokasi : <select name="lokasi" class="form-control">
+                                Pilih Lokasi : <select id="lokasi" name="lokasi" class="form-control">
+                                    <option selected disabled>-- Please Select Option --</option>
                                 <?php if($lokasi) : ?>
                                     <?php foreach($lokasi as $lok) : ?>
                                         <option value="<?php echo $lok['idLokasi']; ?>"><?php echo $lok['nama']; ?></option>
@@ -138,13 +141,22 @@
                                 <?php endif; ?>
                                 </select>
                                 <br>
-                                <button id="payment-button" type="submit" class="btn btn-lg btn-info btn-block">
-                                              <i class="fa fa-search fa-lg"></i>&nbsp;
-                                              <span id="payment-button-amount">Search</span>
-                                          </button>
                             </div>
                         </form>
                     </div>
+                </div>
+                <div class="col-md-6">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <th>Rata - Rata Investasi</th>
+                            <th>Jumlah Investasi</th>
+                            <th>Rata - Rata Umur</th>
+                            <th>Jumlah Customer</th>
+                        </thead>
+                        <tbody id="data-karakteristik">
+                            <td colspan="4">No Data.<br>Silahkan Pilih Lokasi terlebih dahulu</td>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div> <!-- .content -->
@@ -183,6 +195,22 @@
             } );
         } )( jQuery );
     </script>
+    <script>
+        $( document ).ready(function() {
+            $( "#lokasi" ).change(function( event ) {
+                var id = $("#lokasi").val();
+                event.preventDefault();
+                $.ajax({
 
+                    url: "http://localhost/" + "CRM/karakteristikDaerah",
+                    method: "post",
+                    data: {idLokasi : id},
+                    success: function(data) {
+                        $("#data-karakteristik").html(data);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
