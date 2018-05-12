@@ -120,7 +120,7 @@ CREATE TABLE `hubungancustomer` (
   CONSTRAINT `hubungancustomer_ibfk_1` FOREIGN KEY (`idCustomer1`) REFERENCES `customer` (`idCustomer`),
   CONSTRAINT `hubungancustomer_ibfk_2` FOREIGN KEY (`idCustomer2`) REFERENCES `customer` (`idCustomer`),
   CONSTRAINT `hubungancustomer_ibfk_3` FOREIGN KEY (`idHubungan`) REFERENCES `hubungan` (`idHubungan`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -129,7 +129,7 @@ CREATE TABLE `hubungancustomer` (
 
 LOCK TABLES `hubungancustomer` WRITE;
 /*!40000 ALTER TABLE `hubungancustomer` DISABLE KEYS */;
-INSERT INTO `hubungancustomer` VALUES (2,121,122,1,'2018-05-11',1,NULL),(3,121,122,3,'2018-05-12',0,1),(4,19,17,12,'2018-05-12',0,NULL),(5,19,17,10,'2018-05-12',0,12),(6,19,17,3,'2018-05-12',0,10),(7,19,17,1,'2018-05-12',1,12);
+INSERT INTO `hubungancustomer` VALUES (2,121,122,1,'2018-05-11',1,NULL),(3,121,122,3,'2018-05-12',0,1),(4,19,17,12,'2018-05-12',0,NULL),(5,19,17,10,'2018-05-12',0,12),(6,19,17,3,'2018-05-12',0,10),(7,19,17,1,'2018-05-12',0,12),(8,19,17,8,'2018-05-12',1,12),(9,121,12,10,'2018-05-12',1,NULL),(10,121,12,9,'2018-05-12',1,NULL),(11,121,12,8,'2018-05-12',0,9);
 /*!40000 ALTER TABLE `hubungancustomer` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,6 +197,66 @@ UNLOCK TABLES;
 --
 -- Dumping routines for database 'crm'
 --
+/*!50003 DROP PROCEDURE IF EXISTS `advancedSearch` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `advancedSearch`(
+nama varchar(1000),
+idLokasi int,
+umurBawah int,
+umurAtas int,
+nilaiInvestasiBawah int,
+nilaiInvestasiAtas int
+)
+BEGIN
+	DECLARE s VARCHAR(1000);
+    set s = 'SELECT 
+    customer.idCustomer,
+    Customer.nama,
+    Lokasi.nama as lokasi,
+    tanggalLahir,
+    Alamat,
+    nilaiInvestasi
+    FROM CUSTOMER JOIN LOKASI ON LOKASI.idLokasi = customer.idlokasi WHERE ';
+    IF nama != '' THEN 
+		SET s = CONCAT(s," LOWER(customer.nama) LIKE '%",LOWER(nama),"%' AND");
+    END IF;
+    IF idLokasi != 0 THEN 
+		SET s = CONCAT(s,' customer.idLokasi =',idLokasi,' AND');
+    END IF;
+    IF umurbawah != 0 THEN 
+		SET s = CONCAT(s," TIMESTAMPDIFF(year,customer.tanggalLahir,CURDATE()) >= ",umurBawah,' AND');
+    END IF;
+    IF umuratas != 0 THEN 
+		SET s = CONCAT(s," TIMESTAMPDIFF(year,customer.tanggalLahir,CURDATE()) <= ",umurAtas,' AND');
+    END IF;    
+    IF nilaiInvestasiBawah != 0 THEN 
+		SET s = CONCAT(s,' nilaiInvestasi >= ',NilaiInvestasibawah,' AND');
+    END IF;
+    IF nilaiInvestasiAtas != 0 THEN 
+		SET s = CONCAT(s,' nilaiInvestasi <= ',NilaiInvestasiatas,' AND');
+    END IF;
+    if  SUBSTRING(s, -3, 3) = 'AND' THEN
+		SET @z =  SUBSTRING(s, 1, LENGTH(s)-3);
+	ELSE 
+		SET @z =  SUBSTRING(s, 1, LENGTH(s)-6);
+	END IF;
+	PREPARE stmt1 FROM @z;
+	EXECUTE stmt1 ;
+	DEALLOCATE PREPARE stmt1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getDataAdministrator` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1062,4 +1122,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-05-12 13:52:05
+-- Dump completed on 2018-05-12 15:09:46

@@ -2,7 +2,7 @@
             <div class="col-sm-4">
                 <div class="page-header float-left">
                     <div class="page-title">
-                        <h1>Data Customer</h1>
+                        <h1>Hasil Pencarian</h1>
                     </div>
                 </div>
             </div>
@@ -11,8 +11,8 @@
                     <div class="page-title">
                         <ol class="breadcrumb text-right">
                             <li><a href="#">Dashboard</a></li>
-                            <li><a href="#">Data</a></li>
-                            <li class="active">Data Customer</li>
+                            <li><a href="#">Advanced Search</a></li>
+                            <li class="active">Hasil Pencarian</li>
                         </ol>
                     </div>
                 </div>
@@ -26,30 +26,13 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Data Customer</strong>
+                            <strong class="card-title">Hasil Pencarian</strong>
                         </div>
                         
                   
                 
                         <div class="card-body">
                   <table id="bootstrap-data-table" class="table table-striped table-bordered">
-                    <div class="">
-                <div class="card text-white bg-flat-color-2">
-                    <div class="card-body pb-0">
-                        <a href="<?php echo base_url(); ?>viewInsertCustomer">
-                            <p class="text-light"><i class="fa fa-plus fa-lg"></i>&nbsp;
-                                              <span id="payment-button-amount">Insert Data Customer</span></p>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="">
-                        <div class="card text-white">
-                            <div class="card-body pb-0">
-                                <h3><?php echo $this->session->flashdata('info_add');?></h3>
-                            </div>
-                        </div>
-                    </div>
                     <thead>
                       <tr>
                         <th>Nama</th>
@@ -68,13 +51,13 @@
                             <td><?php echo $customer['nama'];?></td>
                             <td><?php echo $customer['lokasi'];?></td>
                             <td><?php echo $customer['tanggalLahir'];?></td>
-                            <td><?php echo $customer['alamat'];?></td>
+                            <td><?php echo $customer['Alamat'];?></td>
                             <td><?php echo number_format($customer['nilaiInvestasi']);?></td>
                             <td>
                                 <a href="<?php echo base_url();?>editCustomer/<?php echo $customer['idCustomer']; ?>" class="btn btn-success btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Ubah Data
                                 </a>
-                                <a href="<?php echo base_url();?>revertCustomer/<?php echo $customer['idCustomer']; ?>" style="margin-top: 5px;" class="btn btn-danger btn-sm">
+                                <a style="margin-top: 5px;" href="<?php echo base_url();?>revertCustomer/<?php echo $customer['idCustomer']; ?>" class="btn btn-danger btn-sm">
                                     <i class="fa fa-ban"></i> Revert Data
                                 </a>
                             </td>
@@ -82,11 +65,14 @@
                         <?php endforeach; ?>
                       <?php endif; ?>
                       </tbody>
-                  </table>
+                    </table>
+                    <div class="col-lg-4">
+                    <a href="<?php echo base_url();?>advancedSearch" class="btn btn-lg btn-danger btn-block"><i class="fa fa-reply fa-lg"></i>&nbsp; BACK</a>
+                </div>
                         </div>
                     </div>
                 </div>
-
+                
 
                 </div>
             </div><!-- .animated -->
