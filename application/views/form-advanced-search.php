@@ -53,19 +53,32 @@
                                           </select>
                                       </div>
                                       <div class="form-group">
-                                          <label for="tanggal_lahir" class="control-label mb-1">Rentang Umur</label>
-                                          <div class="" style="">
-                                          <input id="umur_awal" name="umur_awal" type="number" class="form-control col-sm-3" value=""> - 
-                                          <input id="umur_akhir" name="umur_akhir" type="number" class="form-control col-sm-3" value="">
+                                          <div class="col-md-12">
+                                            <div class="form-group row">
+                                              <label for="tanggal_lahir" class="col-md-4 control-label">Rentang Umur :</label>
+                                              <div class="col-md-2">
+                                                <input id="umur_awal" name="umur_awal" type="number" class="form-control" value="">
+                                              </div>
+                                              <label for="tanggal_lahir" class="col-md-1 control-label">-</label>
+                                              <div class="col-md-2">
+                                                <input id="umur_akhir" name="umur_akhir" type="number" class="form-control" value="">
+                                              </div>
+                                            </div>
                                           </div>
-                                          
                                       </div>
                                       <div class="form-group">
-                                          <label for="tanggal_lahir" class="control-label mb-1">Rentang Investasi</label>
-                                          <div class="">
-                                          <input id="investasi_awal" name="investasi_awal" type="number" class="form-control col-sm-3" value=""> - 
-                                          <input id="investasi_akhir" name="investasi_akhir" type="number" class="form-control col-sm-3" value="">
+                                        <div class="col-md-12">
+                                          <div class="form-group row">
+                                            <label for="tanggal_lahir" class="control-label col-md-4">Rentang Investasi :</label>
+                                            <div class="col-md-2">
+                                              <input id="investasi_awal" name="investasi_awal" type="number" class="form-control" value="">
+                                            </div>
+                                            <label for="tanggal_lahir" class="col-md-1 control-label">-</label>
+                                            <div class="col-md-2">
+                                              <input id="investasi_akhir" name="investasi_akhir" type="number" class="form-control" value="">
+                                            </div>
                                           </div>
+                                        </div>
                                           
                                       </div>
                                       <div>
