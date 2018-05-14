@@ -44,9 +44,9 @@
                         </div>
                     </div>
                     <div class="">
-                        <div class="card text-white">
+                        <div class="card text-black">
                             <div class="card-body pb-0">
-                                <h3><?php echo $this->session->flashdata('info_add');?></h3>
+                                <h5><?php echo $this->session->flashdata('info_add');?></h5>
                             </div>
                         </div>
                     </div>

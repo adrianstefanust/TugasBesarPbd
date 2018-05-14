@@ -265,7 +265,7 @@ class Administrator extends CI_Controller{
 			$tanggal = date("Y-m-d");
 			$this->load->model('ModelHubungan');
 			$this->ModelHubungan->editHubunganCustomer($idHubunganLama, $idHubunganBaru, $idCustomer1, $idCustomer2);
-			$this->session->set_flashdata('info_add', "Berhasil menambahkan Edit Hubungan Customer");
+			$this->session->set_flashdata('info_add', "Berhasil melakukan Edit Hubungan Customer");
 			redirect('/dataHubunganCustomer');
 		}
 		else{
@@ -280,6 +280,7 @@ class Administrator extends CI_Controller{
 			//die($idCustomer1);
 			$this->load->model('ModelHubungan');
 			$this->ModelHubungan->revertHubunganCustomer($idCustomer1, $idCustomer2, $idHubungan);
+			$this->session->set_flashdata('info_add', "Berhasil melakukan Revert Hubungan Customer");
 			redirect('/dataHubunganCustomer');
 		}
 		else{

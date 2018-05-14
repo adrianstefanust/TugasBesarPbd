@@ -9,7 +9,7 @@
                 </div>
                 <div class="login-form">
                     <div>
-                        <a href="index.html">
+                        <a href="<?php echo base_url();?>login">
                         <h3 align="center">Customer Relational Management</h3>
                         <br>
                         <h4 align="center">Admin Site</h4>

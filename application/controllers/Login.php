@@ -15,12 +15,15 @@ class Login extends CI_Controller{
 			$this->load->model('ModelAdmin');
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
-			//die($password);
 			$loginData = $this->ModelAdmin->checkLogin($username, $password);
-			//var_dump($loginData[0]['id']);
-			//die($logged);
-			if($loginData[0]['id']!=""){
-				//SET SESSION
+			if($loginData==NULL){
+				$aData['title'] = "CRM - Login Site";
+				$this->session->set_flashdata('error_login', "Invalid Username or Password");
+				$this->load->view('template/header', $aData);
+				$this->load->view('page-login');
+				
+			}
+			else{
 				$idAdmin = $this->ModelAdmin->getLoginItem($username, "id");
 				$newdata = array(
         			'username'  => $username,
@@ -29,12 +32,6 @@ class Login extends CI_Controller{
 				);
 				$this->session->set_userdata($newdata);
 				redirect('/home');
-			}
-			else{
-				$aData['title'] = "CRM - Login Site";
-				$this->session->set_flashdata('error_login', "Invalid Username or Password");
-				$this->load->view('template/header', $aData);
-				$this->load->view('page-login');
 			}
 		}
 		else{

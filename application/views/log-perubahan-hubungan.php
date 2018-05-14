@@ -49,8 +49,8 @@
                           <tr>
                             <td><?php echo $log['namaCust1'];?></td>
                             <td><?php echo $log['namaCust2'];?></td>
-                            <td><?php echo $log['nama'];?></td>
                             <td><?php echo $log['namaHubSebelum'];?></td>
+                            <td><?php echo $log['nama'];?></td>
                             <td><?php echo $log['tanggal'];?></td>
                           </tr>
                         <?php endforeach; ?>
