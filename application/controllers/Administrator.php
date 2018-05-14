@@ -264,8 +264,8 @@ class Administrator extends CI_Controller{
 			$idHubunganBaru = $this->input->post('hubungan');
 			$tanggal = date("Y-m-d");
 			$this->load->model('ModelHubungan');
-			$this->ModelHubungan->editHubunganCustomer($idHubunganLama, $idHubunganBaru, $idCustomer1, $idCustomer2, $tanggal);
-			$this->session->set_flashdata('info_add', "Berhasil menambahkan Edit Hubungan Customer");
+			$this->ModelHubungan->editHubunganCustomer($idHubunganLama, $idHubunganBaru, $idCustomer1, $idCustomer2);
+			$this->session->set_flashdata('info_add', "Berhasil melakukan Edit Hubungan Customer");
 			redirect('/dataHubunganCustomer');
 		}
 		else{
@@ -280,6 +280,7 @@ class Administrator extends CI_Controller{
 			//die($idCustomer1);
 			$this->load->model('ModelHubungan');
 			$this->ModelHubungan->revertHubunganCustomer($idCustomer1, $idCustomer2, $idHubungan);
+			$this->session->set_flashdata('info_add', "Berhasil melakukan Revert Hubungan Customer");
 			redirect('/dataHubunganCustomer');
 		}
 		else{
@@ -353,6 +354,19 @@ class Administrator extends CI_Controller{
 			redirect('/login');
 		}
 	}
-	
+	function getLogPerubahanHubunganCustomer(){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Log Perubahan Hubungan Customer";
+			$this->load->model('ModelHubungan');
+			$aData['logHubungan'] = $this->ModelHubungan->getLogPerubahanHubungan();
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('log-perubahan-hubungan', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
 }
 ?>

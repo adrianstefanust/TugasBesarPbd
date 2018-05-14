@@ -1,22 +1,10 @@
 <?php
 class ModelAdmin extends CI_Model{
 	function checkLogin($username, $password){
-		$this->db->select('id');
-		$this->db->where('username', $username);
-		$result = $this->db->get('admin');
-		if($result->num_rows() >=1){
-			
-			$this->db->where('pass', $password);
-			$result = $this->db->get('admin');
-			if($result->num_rows() >=1){
-				return 'true';
-			}
-			else{
-				return "Incorrect Password";
-			}
-		} else {
-			return "Username not exists";
-		}
+		$data = $this->db->query("call login('$username', '$password')");
+		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
+		return $result;
 	}
 	function getLoginItem($username, $item){
 		$this->db->select('id');
@@ -34,6 +22,7 @@ class ModelAdmin extends CI_Model{
 	function getDataAdministrator(){
 		$data = $this->db->query("call getDataAdministrator()");
 		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
 		return $result;
 	}
 }

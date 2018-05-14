@@ -73,6 +73,7 @@ $route['karakteristikDaerah'] = 'Administrator/getKarakteristikDaerah';
 $route['advancedSearch'] = 'Administrator/loadAdvancedSearch';
 $route['revertCustomer'] = 'Administrator/revertCustomer';
 $route['search'] = 'Administrator/resultAdvancedSearch';
+$route['logPerubahanHubungan'] = 'Administrator/getLogPerubahanHubunganCustomer';
 $route['attemptLogin'] = 'Login/attemptLogin';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

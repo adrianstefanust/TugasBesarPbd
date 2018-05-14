@@ -23,18 +23,18 @@
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Insert Data</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-puzzle-piece"></i><a href="<?php echo base_url();?>viewAdmin">Admin</a></li>
-                            <li><i class="fa fa-id-badge"></i><a href="<?php echo base_url();?>viewInsertCustomer">Customer</a></li>
-                            <li><i class="fa fa-bars"></i><a href="<?php echo base_url();?>viewHubungan">Hubungan</a></li>
-                            <li><i class="fa fa-share-square-o"></i><a href="<?php echo base_url();?>viewHubunganCustomer">Hubungan Costumer</a></li>
+                            <li><i class="fa fa-id-badge"></i><a href="<?php echo base_url();?>viewAdmin">Admin</a></li>
+                            <li><i class="fa fa-user-circle"></i><a href="<?php echo base_url();?>viewInsertCustomer">Customer</a></li>
+                            <li><i class="fa fa-random"></i><a href="<?php echo base_url();?>viewHubungan">Hubungan</a></li>
+                            <li><i class="fa fa-share-alt"></i><a href="<?php echo base_url();?>viewHubunganCustomer">Hubungan Costumer</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-table"></i>Data</a>
                         <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataCustomer">Data Customer</a></li>
-                            <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataAdministrator">Data Administrator</a></li>
-                            <li><i class="fa fa-table"></i><a href="<?php echo base_url();?>dataHubunganCustomer">Data Hubungan Customer</a></li>
+                            <li><i class="fa fa-street-view"></i><a href="<?php echo base_url();?>dataCustomer">Data Customer</a></li>
+                            <li><i class="fa fa-television"></i><a href="<?php echo base_url();?>dataAdministrator">Data Administrator</a></li>
+                            <li><i class="fa fa-users"></i><a href="<?php echo base_url();?>dataHubunganCustomer">Data Hubungan Customer</a></li>
                         </ul>
                     </li>
                     <li class="menu-item-has-children dropdown">
@@ -43,7 +43,13 @@
                         <li><i class="fa fa-search"></i><a href="<?php echo base_url();?>advancedSearch">Advanced Search</a></li>
                         </ul>
                     </li>
-                   
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-exchange"></i>Log</a>
+                        <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-wrench"></i><a href="<?php echo base_url();?>logPerubahanHubungan">Log Perubahan Hubungan Customer</a></li>
+                        <li><i class="fa fa-user"></i><a href="<?php echo base_url();?>logPerubahanData">Log Perubahan Data Customer</a></li>
+                        </ul>
+                    </li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </nav>

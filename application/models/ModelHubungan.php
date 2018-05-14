@@ -19,11 +19,17 @@ class ModelHubungan extends CI_Model{
 		mysqli_next_result( $this->db->conn_id );
 		return $result;
 	}
-	function editHubunganCustomer($idHubunganLama, $idHubunganBaru, $idCustomer1, $idCustomer2, $tanggal){
-		$data = $this->db->query("call updateHubungan('$idHubunganLama','$idHubunganBaru','$idCustomer1','$idCustomer2', '$tanggal')");
+	function editHubunganCustomer($idHubunganLama, $idHubunganBaru, $idCustomer1, $idCustomer2){
+		$data = $this->db->query("call updateHubungan('$idHubunganLama','$idHubunganBaru','$idCustomer1','$idCustomer2')");
 	}
 	function revertHubunganCustomer($idCustomer1, $idCustomer2, $idHub){
 		$data = $this->db->query("call revertHubungan('$idCustomer1','$idCustomer2', '$idHub')");
+	}
+	function getLogPerubahanHubungan(){
+		$data = $this->db->query("call getLogPerubahanHubungan()");
+		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
+		return $result;
 	}
 }
 ?>
