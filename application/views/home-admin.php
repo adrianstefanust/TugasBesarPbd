@@ -176,6 +176,32 @@
                     </table>
                 </div>
             </div>
+            <div class="col-sm-12">
+                <div class="alert  alert-primary alert-dismissible fade show" role="alert">
+                  <h4>
+                  EVENT ULANG TAHUN TERDEKAT (7 HARI)</h4>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <th>Nama Customer</th>
+                            <th>Tanggal Lahir</th>
+                            <th>Umur</th>
+                        </thead>
+                        <tbody id="">
+                             <?php if($ulangTahun) : ?>
+                                    <?php foreach($ulangTahun as $ultah) : ?>
+                                        <tr>
+                                        <td><?php echo $ultah['nama'] ?></td>
+                                        <td><?php echo $ultah['tanggalLahir'] ?></td>
+                                        <td><?php echo $ultah['Umur'] ?></td>
+                                    </tr>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                        </tbody>
+                    </table>
+            </div>
         </div> <!-- .content -->
     </div><!-- /#right-panel -->
 

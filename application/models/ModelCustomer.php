@@ -44,5 +44,11 @@ class ModelCustomer extends CI_Model{
 		$result = $data->result_array();
 		return $result;
 	}
+	function getEventUlangTahun(){
+		$data = $this->db->query("call getEventUlangTahun()");
+		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
+		return $result;
+	}
 }
 ?>
