@@ -25,6 +25,16 @@ class ModelAdmin extends CI_Model{
 		mysqli_next_result( $this->db->conn_id );
 		return $result;
 	}
+	function getDetailAdmin($idAdmin){
+		$data = $this->db->query("call getDetailAdmin('$idAdmin')");
+		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
+		return $result;
+	}
+	function updateAdmin($idAdmin, $username, $password, $nama){
+		$data = $this->db->query("call editDataAdmin('$idAdmin','$username','$password','$nama')");
+		mysqli_next_result( $this->db->conn_id );
+	}
 }
 //CARA PENGGUNAAN STORED PROCEDURE DALAM CODEIGNITER
 //$this->db->query("call insertAdmin('$username', '$password', '$nama')");

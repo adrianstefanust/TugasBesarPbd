@@ -369,5 +369,43 @@ class Administrator extends CI_Controller{
 			redirect('/login');
 		}
 	}
+	function editAdmin(){
+		if($this->session->userdata('logged_in')){
+			$idAdmin = $this->input->post('idAdmin');
+			$namaAdmin = $this->input->post('namaAdmin');
+			$usernameAdmin = $this->input->post('usernameAdmin');
+			$passwordAdmin = $this->input->post('passwordAdmin');
+			$this->load->model('ModelAdmin');
+			$this->ModelAdmin->updateAdmin($idAdmin, $usernameAdmin, $passwordAdmin, $namaAdmin);
+			$this->session->set_flashdata('info_add', "Berhasil melakukan Edit Data Administrator");
+			redirect('/dataAdministrator');
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function getDetailAdmin($idAdmin){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Detail Admin";
+			$this->load->model('ModelAdmin');
+			$aData['detailAdmin'] = $this->ModelAdmin->getDetailAdmin($idAdmin);
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('edit-admin', $aData);
+		}
+		else{
+			redirect('/login');
+		}
+	}
+	function getLogPerubahanCustomer(){
+		if($this->session->userdata('logged_in')){
+			$aData['title'] = "CRM - Log Perubahan Data Customer";
+		}
+		else{
+			redirect('/login');
+		}
+	}
+
 }
 ?>

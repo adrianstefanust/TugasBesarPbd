@@ -45,6 +45,13 @@
 
                 </div>
             </div>
+            <div class="">
+                        <div class="card text-black">
+                            <div class="card-body pb-0">
+                                <h5><?php echo $this->session->flashdata('info_add');?></h5>
+                            </div>
+                        </div>
+                    </div>
                     <thead>
                       <tr>
                         <th>Nama</th>
@@ -59,9 +66,9 @@
                           <tr>
                             <td><?php echo $admin['nama'];?></td>
                             <td><?php echo $admin['username'];?></td>
-                            <td><button type="submit" class="btn btn-success btn-sm">
+                            <td><a href = "<?php echo base_url();?>getDetailAdmin/<?php echo $admin['id'];?>" class="btn btn-success btn-sm">
                           <i class="fa fa-dot-circle-o"></i> Ubah Data
-                        </button></td>
+                        </a></td>
                           </tr>
                         <?php endforeach; ?>
                       <?php endif; ?>

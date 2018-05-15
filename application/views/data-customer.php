@@ -44,9 +44,9 @@
                 </div>
             </div>
             <div class="">
-                        <div class="card text-white">
+                        <div class="card text-black">
                             <div class="card-body pb-0">
-                                <h3><?php echo $this->session->flashdata('info_add');?></h3>
+                                <h5><?php echo $this->session->flashdata('info_add');?></h5>
                             </div>
                         </div>
                     </div>
@@ -57,6 +57,7 @@
                         <th>Tanggal Lahir</th>
                         <th>Alamat</th>
                         <th>Nilai Investasi</th>
+                        <th>Tanggal Bergabung</th>
                         <th>Action</th>
                       </tr>
                     </thead>
@@ -70,6 +71,7 @@
                             <td><?php echo $customer['tanggalLahir'];?></td>
                             <td><?php echo $customer['alamat'];?></td>
                             <td><?php echo number_format($customer['nilaiInvestasi']);?></td>
+                            <td><?php echo $customer['tanggalMasuk'];?></td>
                             <td>
                                 <a href="<?php echo base_url();?>editCustomer/<?php echo $customer['idCustomer']; ?>" class="btn btn-success btn-sm">
                                     <i class="fa fa-dot-circle-o"></i> Ubah Data

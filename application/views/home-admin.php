@@ -187,7 +187,7 @@
                         <thead>
                             <th>Nama Customer</th>
                             <th>Tanggal Lahir</th>
-                            <th>Umur</th>
+                            <th>Ulang Tahun ke</th>
                         </thead>
                         <tbody id="">
                              <?php if($ulangTahun) : ?>
