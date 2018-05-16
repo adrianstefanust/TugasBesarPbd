@@ -5,13 +5,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `insertHubunganCustomer`(
 )
 BEGIN
     
-	INSERT INTO hubunganCustmer (idcustomer1, idCustomer2, idHubungan,tanggal,isValid) 
+	INSERT INTO hubunganCustomer (idcustomer1, idCustomer2, idHubungan,isValid, idHubSebelum) 
 		SELECT 
 			customer1,
             customer2,
             hubungan,
-            NOW(),
-            1
+            1,
+            NULL
 		WHERE NOT EXISTS
 			(
 			SELECT 
@@ -19,7 +19,7 @@ BEGIN
 				idcustomer2,
 				idhubungan 
 			FROM 
-				hungancusotmer 
+				hubungancustomer 
 			WHERE 
 				hubungancustomer.idcustomer1=customer1 
 				AND 

@@ -1,7 +1,6 @@
-CREATE DEFINER=`root`@`localhost` PROCEDURE `rataRataInvestasi`(
- in daerah int
- )
+CREATE DEFINER=`root`@`localhost` PROCEDURE `jumlahCustomer`(in daerah int)
 BEGIN
+
 DECLARE rata2 int;
 declare p int;
 set p =1;
@@ -64,12 +63,15 @@ insert into tblHasil select idLokasi from lokasi where idLokasi = daerah;
         
         set p=  (select count(id) from tblParent);
     end while;
-   
 
-insert into tblResult
-select 'rata_rata_investasi',(
-select avg(nilaiInvestasi ) from customer cross join tblHasil where idLokasi = tblHasil.id);
+
+    insert into tblResult
+select 'jumlah_Customer',(
+		select count(id) 
+			from 
+				customer cross join tblHasil 
+            where 
+				idLokasi = tblHasil.id);
 
 select * from tblResult;
-
-end
+END
