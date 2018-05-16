@@ -7,6 +7,7 @@ class Administrator extends CI_Controller{
 			$aData['totalInvestasi'] = $this->ModelCustomer->getTotalRataanInvestasi();
 			$aData['jumlahCustomer'] = $this->ModelCustomer->getJumlahCustomer();
 			$aData['ulangTahun'] = $this->ModelCustomer->getEventUlangTahun();
+			$aData['jumlahInvest'] = $this->ModelCustomer->getInvestasiTerbesar();
 			$this->load->model('ModelLokasi');
 			$aData['lokasi'] = $this->ModelLokasi->getAllLokasi();
 			$this->load->view('template/header', $aData);

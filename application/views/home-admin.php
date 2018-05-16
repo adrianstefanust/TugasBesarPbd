@@ -25,35 +25,29 @@
         
         <div class="content mt-3">
             <div class="col-md-12">
-               <div class="col-md-3">
-                <section class="card">
-                    <div class="twt-feed blue-bg">
-                        <div class="corner-ribon black-ribon">
-                            <i class="fa fa-twitter"></i>
-                        </div>
-                        <div class="fa fa-twitter wtt-mark"></div>
-
-                        <div class="media">
-                            <a href="#">
-                                <img class="align-self-center rounded-circle mr-3" style="width:85px; height:85px;" alt="" src="images/admin.jpg">
-                            </a>
-                            <div class="media-body">
-                                <h3 class="text-white display-6">Vincent Joel</h3>
-                                <p class="text-light">Mahasiswa Bocuan</p>
-                            </div>
-                        </div>
+               <div class="col-md-6">
+                    <div class="alert  alert-success alert-dismissible fade show" role="alert">
+                    <h4>
+                    Customer Dengan Perubahan Investasi Terbesar</h4>
                     </div>
-                    <footer class="twt-footer">
-                        <a href="#"><i class="fa fa-camera"></i></a>
-                        <a href="#"><i class="fa fa-map-marker"></i></a>
-                        Parahyangan Catholic University
-                        <span class="pull-right">
-                            2015
-                        </span>
-                    </footer>
-                </section>
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <th>Nama</th>
+                            <th>Perubahan Investasi</th>
+                        </thead>
+                        <tbody>
+                            <?php if($jumlahInvest) : ?>
+                                        <?php foreach($jumlahInvest as $invest) : ?>
+                                            <tr>
+                                           <td> <?php echo $invest['nama'];?></td> 
+                                            <td> <?php echo number_format($invest['jumlah']);?></td> 
+                                        </tr>
+                                        <?php endforeach; ?>
+                                    <?php endif; ?>
+                        </tbody>
+                    </table>
                 </div> 
-                <div class="col-md-9">
+                <div class="col-md-6">
                     <div class="alert  alert-success alert-dismissible fade show" role="alert">
                     <h4>
                     QUICK ACCESS</h4>
