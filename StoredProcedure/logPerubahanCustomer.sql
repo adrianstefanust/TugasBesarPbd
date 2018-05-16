@@ -36,7 +36,7 @@ CREATE TEMPORARY TABLE tblResult (
     IF v_finished = 1 
 		THEN LEAVE get_id;
 	END IF;
-    FETCH myCursor INTO id,idCustomer,namaField,valueSebelum,idSebelum,valueSekarang,tanggalBerubah,idAdmin,isValid;
+    
     if namaField = 'idLokasi'
     then
     set namaCustomer = (select customer.nama from customer where customer.idCustomer=idCustomer);
@@ -54,6 +54,7 @@ CREATE TEMPORARY TABLE tblResult (
         idAdmin,
         isValid;
     else 
+    set namaCustomer = (select customer.nama from customer where customer.idCustomer=idCustomer);
     insert into tblResult
     select 
 		id,
@@ -66,6 +67,7 @@ CREATE TEMPORARY TABLE tblResult (
         idAdmin,
         isValid;
     end if;
+    FETCH myCursor INTO id,idCustomer,namaField,valueSebelum,idSebelum,valueSekarang,tanggalBerubah,idAdmin,isValid;
     END LOOP get_id;
     CLOSE myCursor;
     select * from tblResult;
