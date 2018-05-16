@@ -148,6 +148,34 @@ class Administrator extends CI_Controller{
 			redirect('/login');
 		}
 	}
+	function perbandinganAntarDaerah(){
+		$idLokasi1 = $this->input->post('idLokasi1');
+		$idLokasi2 = $this->input->post('idLokasi2');
+		$field = $this->input->post('field');
+		// $idLokasi1 = '5';
+		// $idLokasi2 = '6';
+		// $field = '2';
+		$this->load->model('ModelLokasi');
+		if($field == '0'){
+			$aData['judul'] = "Jumlah Investasi";
+			$aData['data'] = $this->ModelLokasi->getPerbandinganJumlahInvestasi($idLokasi1,$idLokasi2);
+		}
+		else if($field == '1'){
+			$aData['judul'] = "Jumlah Customer";
+			$aData['data'] = $this->ModelLokasi->getPerbandinganJumlahCustomer($idLokasi1,$idLokasi2);
+		}
+		else if($field == '2'){
+			$aData['judul'] = "Rata - Rata Umur";
+			$aData['data'] = $this->ModelLokasi->getPerbandinganRataUmur($idLokasi1,$idLokasi2);
+		}
+		else{
+			$aData['judul'] = "Rata - Rata Investasi";
+			$aData['data'] = $this->ModelLokasi->getPerbandinganRataInvestasi($idLokasi1,$idLokasi2);
+		}
+		//var_dump($aData);
+		$string = $this->load->view('data-perbandingan', $aData, true);
+		echo  $string;
+	}
 	function loadDataCustomer(){
 		if($this->session->userdata('logged_in')){
 			$aData['title'] = "CRM - Data Customer";
@@ -401,6 +429,12 @@ class Administrator extends CI_Controller{
 	function getLogPerubahanCustomer(){
 		if($this->session->userdata('logged_in')){
 			$aData['title'] = "CRM - Log Perubahan Data Customer";
+			$this->load->model('ModelCustomer');
+			$aData['logData'] = $this->ModelCustomer->getLogPerubahanDataCustomer();
+			$this->load->view('template/header', $aData);
+			$this->load->view('template/left-side');
+			$this->load->view('template/right-panel');
+			$this->load->view('log-perubahan-data', $aData);
 		}
 		else{
 			redirect('/login');

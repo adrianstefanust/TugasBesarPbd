@@ -52,7 +52,7 @@
                                       <div class="form-group">
                                           <label for="namaCustomer1" class="control-label mb-1">Nama Customer 1</label>
                                           <input type="hidden" name="idCustomer1" value="<?php echo $det['idCustomer1']; ?>">
-                                          <input id="namaCustomer1" name="namaCustomer1" type="text" class="form-control" aria-required="true" aria-invalid="false" value="<?php echo $det['namaCust1'];?>">
+                                          <input id="namaCustomer1" name="namaCustomer1" type="text" class="form-control" aria-required="true" aria-invalid="false" value="<?php echo $det['namaCust1'];?>" disabled>
                                       </div>
                                       <div class="form-group has-success">
                                           <label for="hubungan" class="control-label mb-1">Hubungan</label>
@@ -69,7 +69,7 @@
                                         <input type="hidden" name="idHubunganLama" value="<?php echo $det['idhubungan']; ?>">
                                           <label for="namaCustomer2" class="control-label mb-1">Nama Customer 2</label>
                                           <input type="hidden" name="idCustomer2" value="<?php echo $det['idCustomer2']; ?>">
-                                          <input id="namaCustomer2" name="namaCustomer2" type="text" class="form-control" aria-required="true" aria-invalid="false" value="<?php echo $det['namaCust2'];?>">
+                                          <input id="namaCustomer2" name="namaCustomer2" type="text" class="form-control" aria-required="true" aria-invalid="false" value="<?php echo $det['namaCust2'];?>" disabled>
                                       </div>
                                       <div>
                                         <div class="col-lg-4">

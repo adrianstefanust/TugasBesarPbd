@@ -177,6 +177,64 @@
                 </div>
             </div>
             <div class="col-sm-12">
+                <div class="alert  alert-warning alert-dismissible fade show" role="alert">
+                  <h4>
+                  Perbandingan Antar Daerah</h4>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <form id="perbandingan">
+                            <div class="form-group">
+                                Pilih Lokasi 1 : <select id="lokasi1" name="lokasi1" class="form-control" required>
+                                    <option selected disabled>-- Please Select Option --</option>
+                                <?php if($lokasi) : ?>
+                                    <?php foreach($lokasi as $lok) : ?>
+                                        <option value="<?php echo $lok['idLokasi']; ?>"><?php echo $lok['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                </select>
+                                <br>
+                            </div>
+                            <div class="form-group">
+                                Pilih Lokasi 2 : <select id="lokasi2" name="lokasi2" class="form-control" required>
+                                    <option selected disabled>-- Please Select Option --</option>
+                                <?php if($lokasi) : ?>
+                                    <?php foreach($lokasi as $lok) : ?>
+                                        <option value="<?php echo $lok['idLokasi']; ?>"><?php echo $lok['nama']; ?></option>
+                                    <?php endforeach; ?>
+                                <?php endif; ?>
+                                </select>
+                                <br>
+                            </div>
+                            <div class="form-group">
+                                Pilih Karakteristik yang ingin dicari : <select id="field" name="field" class="form-control" required>
+                                    <option selected disabled>-- Please Select Option --</option>
+                                    <option value="0">Jumlah Investasi</option>
+                                    <option value="1">Jumlah Customer</option>
+                                    <option value="2">Rata-Rata Umur</option>
+                                    <option value="3">Rata-Rata Investasi</option>
+                                </select>
+                                <br>
+                            </div>
+                             <button type="submit" class="btn btn-lg btn-info btn-block"><i class="fa fa-search fa-lg"></i> Search</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6" id="data-perbandingan">
+                    <table id="bootstrap-data-table" class="table table-striped table-bordered">
+                        <thead>
+                            <th>Hasil Lokasi 1</th>
+                            <th>Hasil Lokasi 2</th>
+                        </thead>
+                        <tbody id="data-karakteristik">
+                            <td colspan="4">No Data.<br>Silahkan Pilih Lokasi terlebih dahulu</td>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-12">
                 <div class="alert  alert-primary alert-dismissible fade show" role="alert">
                   <h4>
                   EVENT ULANG TAHUN TERDEKAT (7 HARI)</h4>
@@ -250,6 +308,29 @@
                     data: {idLokasi : id},
                     success: function(data) {
                         $("#data-karakteristik").html(data);
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        $( document ).ready(function() {
+            $( "#perbandingan" ).submit(function( event ) {
+                var id1 = $("#lokasi1").val();
+                var id2 = $("#lokasi2").val();
+                var id3 = $("#field").val();
+                event.preventDefault();
+                $.ajax({
+
+                    url: "http://localhost/" + "CRM/perbandingan",
+                    method: "post",
+                    data: {
+                        idLokasi1 : id1,
+                        idLokasi2 : id2,
+                        field : id3
+                        },
+                    success: function(data) {
+                        $("#data-perbandingan").html(data);
                     }
                 });
             });

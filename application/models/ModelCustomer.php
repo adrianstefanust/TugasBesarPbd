@@ -50,5 +50,11 @@ class ModelCustomer extends CI_Model{
 		mysqli_next_result( $this->db->conn_id );
 		return $result;
 	}
+	function getLogPerubahanDataCustomer(){
+		$data = $this->db->query("call LogPerubahanCustomer()");
+		$result = $data->result_array();
+		mysqli_next_result( $this->db->conn_id );
+		return $result;
+	}
 }
 ?>
