@@ -5,6 +5,7 @@ declare namaLokasiSebelum varchar(100);
 declare namaLokasiSekarang varchar(100);
 declare id int;
 declare idCustomer int;
+declare namaCustomer varchar(100);
 declare namaField varchar(100);
 declare valueSebelum varchar(100);
 declare idSebelum int;
@@ -21,7 +22,7 @@ declare myCursor cursor for
 drop table IF EXISTS tblResult;
 CREATE TEMPORARY TABLE tblResult (
 		id int, 
-        idCustomer int,
+        namaCustomer varchar(100),
         namaField varchar(100),
         valueSebelum varchar(100),
         idSebelum int,
@@ -38,12 +39,13 @@ CREATE TEMPORARY TABLE tblResult (
     FETCH myCursor INTO id,idCustomer,namaField,valueSebelum,idSebelum,valueSekarang,tanggalBerubah,idAdmin,isValid;
     if namaField = 'idLokasi'
     then
+    set namaCustomer = (select customer.nama from customer where customer.idCustomer=idCustomer);
     set namaLokasiSebelum = (select lokasi.nama from lokasi where idLokasi = CAST(valueSebelum AS UNSIGNED));
     set namaLokasiSekarang = (select lokasi.nama from lokasi where idLokasi = CAST(valueSekarang AS UNSIGNED));
     insert into tblResult
     select 
 		id,
-        idCustomer,
+        namaCustomer,
         namaField,
         namaLokasiSebelum,
         idSebelum,
@@ -55,7 +57,7 @@ CREATE TEMPORARY TABLE tblResult (
     insert into tblResult
     select 
 		id,
-        idCustomer,
+        namaCustomer,
         namaField,
         valueSebelum,
         idSebelum,
